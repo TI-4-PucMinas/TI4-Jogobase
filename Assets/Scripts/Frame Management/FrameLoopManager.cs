@@ -40,6 +40,12 @@ public class FrameLoopManager : MonoBehaviour
 
     void Start()
     {
+
+        if(_data == null)
+        {
+            Debug.LogError("FrameLoopManagerData is not set!");
+        }
+
         _frameLength = 1f / _data.FrameRate;
         _timeUntilNextFrame = 0f;
         _bufferedInput = KeyCode.None;

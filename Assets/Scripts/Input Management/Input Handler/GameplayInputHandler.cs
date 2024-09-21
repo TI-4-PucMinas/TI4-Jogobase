@@ -23,7 +23,8 @@ public class GameplayInputHandler : InputHandler, IFrameDependant
 
         for (index = 0; index < HeardInputs.Count; index++)
         {
-            if(HeardInputs[index].State == InputState.Canceled) 
+            Debug.Log(HeardInputs[index].Name);
+            if (HeardInputs[index].State == InputState.Canceled) 
             {
                 HeardInputs.RemoveAt(index);
             }
