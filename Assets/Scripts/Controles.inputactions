@@ -1,0 +1,84 @@
+{
+    "name": "Controles",
+    "maps": [
+        {
+            "name": "Frente",
+            "id": "45a42a3e-aa02-445f-8be5-f9a689efa49d",
+            "actions": [
+                {
+                    "name": "Frente",
+                    "type": "Button",
+                    "id": "3ca11e16-8394-421c-a91a-14048b17fe58",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "64cf732c-2ee0-425e-ac13-08c65a8640fe",
+                    "path": "<Keyboard>/#(D)",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Frente",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b38d9f46-871d-4d38-bb0b-f1c540c9a2d8",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Frente",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "172fc416-2dee-4cd7-93be-9b0287b730b6",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Frente",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "New action map",
+            "id": "c114d886-353f-47cd-b917-169f93109518",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "2478c992-2769-49c9-8d05-47dd803f9896",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "12d2bb27-ba98-43ab-af11-af89ad5f45e3",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
