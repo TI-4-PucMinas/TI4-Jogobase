@@ -428,9 +428,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1207681445}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e54f329ce3a2e849ab5a70832fcac58, type: 3}
+  m_Script: {fileID: 11500000, guid: c3f71f3a4654da34581cda44c06f14f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  airborne: 0
+  speed: 0
 --- !u!1 &1434967043
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,7 +537,7 @@ GameObject:
   - component: {fileID: 1981196249}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
