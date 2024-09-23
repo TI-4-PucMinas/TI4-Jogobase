@@ -10,16 +10,19 @@ public class GameplayInputHandler : InputHandler, IFrameDependant
 {
     public List<GameplayInput> HeardInputs { get; set; }
     public FrameLoopManager _frameLoopManager { get; set; }
+    public List<GameplayInput> _currentInputs { get; set; }
 
     public GameplayInputHandler() : base()
     {
         _frameLoopManager = FrameLoopManager.Instance;
         HeardInputs = new();
     }
-
+    
     public override void HandleHeardInputs()
     {
         int index;
+
+        
 
         for (index = 0; index < HeardInputs.Count; index++)
         {
