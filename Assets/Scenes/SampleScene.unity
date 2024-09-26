@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 1207681446}
   - component: {fileID: 1207681449}
   - component: {fileID: 1207681450}
+  - component: {fileID: 1207681451}
   m_Layer: 0
   m_Name: Preyer
   m_TagString: Player
@@ -448,9 +449,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 3
+  m_LinearDrag: 2
+  m_AngularDrag: 0.33
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -470,9 +471,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207681445}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e54f329ce3a2e849ab5a70832fcac58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1207681451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207681445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f71f3a4654da34581cda44c06f14f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1434967043
@@ -708,8 +721,8 @@ Transform:
   m_GameObject: {fileID: 1981196244}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0427, y: -4.2097, z: 0}
-  m_LocalScale: {x: 23.4946, y: 1.8007, z: 1}
+  m_LocalPosition: {x: -0.1859, y: -4.2097, z: 0}
+  m_LocalScale: {x: 24.639896, y: 1.8007, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

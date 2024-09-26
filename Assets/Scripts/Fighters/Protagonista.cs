@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Protagonista : Player
 {
+    
     void Start()
     {
-        speed = 5f;
+        rb = GetComponent<Rigidbody2D>();
+        speed = 5;
+        dashspeed = 10;
     }
 
     void Update()

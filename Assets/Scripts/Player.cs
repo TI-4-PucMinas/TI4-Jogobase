@@ -7,9 +7,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     protected Rigidbody2D rb;
-    
+    private bool facingRight = true;
     protected bool airborne = false;
-    protected float speed = 5;
+    protected float speed;
+    protected float dashspeed;
+    protected bool is_dashing;
     private List<GameplayInput> currentInputs;
 
     // Start is called before the first frame update
@@ -25,33 +27,71 @@ public class Player : MonoBehaviour
         
     }
 
-    public void Action_Player(GameplayInput input)
+    public void Action_Player(string input)
     {
-        if(input.Name == "Right")
+        if(input == "Right")
         {
+            if(rb.velocity.x < 0)
+            {
+                is_dashing = false;
+            }
             moveRight();
         }
-        else if (input.Name == "Left")
+        else if (input == "Left")
         {
+            if (rb.velocity.x > 0)
+            {
+                is_dashing = true;
+            }
             moveLeft();
         }
+        else if(input == "Dash_right" || input == "Dash_left")
+        {
+            is_dashing = true;
+        }
+        else
+        {
+            is_dashing = false;
+        }
+
+
+
+    }
+
+    protected void moveRight()
+    {
+        if (is_dashing)
+        {
+            rb.velocity = new Vector2 (dashspeed,rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+        }
         
-
     }
 
-    private void moveRight()
+    protected void moveLeft()
     {
-        rb.velocity = new Vector2(speed, rb.velocity.y);
-    }
-
-    private void moveLeft()
-    {
-        rb.velocity = new Vector2(-speed, rb.velocity.y);
+        if (is_dashing)
+        {
+            rb.velocity = new Vector2(-dashspeed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
+        }
     }
 
     private void HandleProcessedInputs(List<GameplayInput> inputs)
     {
         currentInputs = inputs;
+    }
+
+    protected void SetStats(float spd, float d_spd)
+    {
+        speed = spd;
+        dashspeed = d_spd;
     }
 
     //private void OnCollisionEnter2D(Collision2D collision)
