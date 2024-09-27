@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class Player : MonoBehaviour
 {
@@ -27,35 +28,19 @@ public class Player : MonoBehaviour
         
     }
 
-    public void Action_Player(string input)
+    public void Action_Player(List<GameplayInput> inputs)
     {
-        if(input == "Right")
+        for(int i = 0; i < inputs.Count; i++)
         {
-            if(rb.velocity.x < 0)
+            if (inputs[i].Name == "Right")
             {
-                is_dashing = false;
+                moveRight();
             }
-            moveRight();
-        }
-        else if (input == "Left")
-        {
-            if (rb.velocity.x > 0)
+            else if (inputs[i].Name == "Left")
             {
-                is_dashing = true;
+                moveLeft();
             }
-            moveLeft();
         }
-        else if(input == "Dash_right" || input == "Dash_left")
-        {
-            is_dashing = true;
-        }
-        else
-        {
-            is_dashing = false;
-        }
-
-
-
     }
 
     protected void moveRight()

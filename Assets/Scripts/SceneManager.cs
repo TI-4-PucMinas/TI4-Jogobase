@@ -10,7 +10,6 @@ public class SceneManager : MonoBehaviour
     InputHandlersManager inputHandlersManager;
     GameplayInputHandler gameplayInputHandler;
     Dictionary<int, string[]> comandos;
-    string[] mandos;
 
 
     public static SceneManager Instance { get; private set; }
@@ -43,11 +42,8 @@ public class SceneManager : MonoBehaviour
             gameplayInputHandler = (GameplayInputHandler)inputHandlersManager.InputHandlers[InputType.Gameplay];
             if (gameplayInputHandler.HeardInputs.Count > 0)
             {
-                mandos = CheckLink();
-                for (int i = 0; i < mandos.Length; i++)
-                {
-                    player1.Action_Player(mandos[i]);
-                }
+
+                player1.Action_Player(gameplayInputHandler.HeardInputs);
             }
         }
         else
@@ -61,72 +57,5 @@ public class SceneManager : MonoBehaviour
 
     }
 
-    string[] CheckLink()
-    {
-        string[] resposta = new string[gameplayInputHandler.HeardInputs.Count];
-        int c = 0,l = 0,j;
-        for (int k = 0; k < comandos.Count; k++)
-        { 
-                // Iterate through the heard inputs to find a potential match
-                for (int i = 0; i < gameplayInputHandler.HeardInputs.Count && c < resposta.Length ; i++)
-                {
-                    if (l == comandos[k].Length)
-                    {
-                        return resposta;
-                    }
-                    bool sequenceMatch = true;
-                    resposta[c] = gameplayInputHandler.HeardInputs[l].Name;
-                
-                // Check if each key in the sequence matches the corresponding heard input and is not pressed at the same time
-                for (j = 0; j < comandos[k].Length && (j + i) < gameplayInputHandler.HeardInputs.Count; j++)
-                    {
-                        GameplayInput heardInput = gameplayInputHandler.HeardInputs[i + j];
-
-                        if (heardInput.Name != comandos[k][j] || IsInputSimultaneous(heardInput, 2))
-                        {
-
-                            sequenceMatch = false;
-                            break;
-                        }
-
-
-                    }
-
-                    // If the sequence matches, perform the action (replace this with your own logic)
-                    if (sequenceMatch)
-                    {
-                        resposta[c] = comandos[k][0];
-                        l += j;
-                    }
-                l++;
-                c++;
-
-            }
-            }
-        
-        // Check if there are enough heard inputs to potentially match the sequence
-        return resposta;
-    }
-
-    bool IsInputSimultaneous(GameplayInput input, int maxSimultaneousCount)
-    {
-        // Count the occurrences of inputs at the same frame
-        int simultaneousCount = 0;
-
-        foreach (GameplayInput otherInput in gameplayInputHandler.HeardInputs)
-        {
-            if (otherInput != input &&
-                otherInput.StartedFrameNumber == input.StartedFrameNumber &&
-                otherInput.Name == input.Name) // Check if the keys are the same
-            {
-                simultaneousCount++;
-
-                // Break early if the count exceeds the threshold
-                if (simultaneousCount >= maxSimultaneousCount)
-                    return true;
-            }
-        }
-
-        return false;
-    }
+   
 }
