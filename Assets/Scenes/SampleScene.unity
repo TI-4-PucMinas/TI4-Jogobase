@@ -316,7 +316,6 @@ GameObject:
   - component: {fileID: 1207681447}
   - component: {fileID: 1207681446}
   - component: {fileID: 1207681449}
-  - component: {fileID: 1207681450}
   - component: {fileID: 1207681451}
   m_Layer: 0
   m_Name: Preyer
@@ -464,18 +463,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1207681450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1207681445}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e54f329ce3a2e849ab5a70832fcac58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1207681451
 MonoBehaviour:
   m_ObjectHideFlags: 0
