@@ -8,15 +8,18 @@ using UnityEngine.Windows;
 public class Player : MonoBehaviour
 {
     protected Rigidbody2D rb;
+
     protected bool airborne = false;
     protected float speed;
     protected float dashspeed;
     protected bool is_dashing;
     private List<GameplayInput> currentInputs;
 
+
     // Start is called before the first frame update
     void Start()
-    {  
+    { 
+        
         rb = GetComponent<Rigidbody2D>();
     }
 

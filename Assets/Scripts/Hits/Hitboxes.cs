@@ -5,6 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
+
+public interface IHitboxResponder
+{
+
+    void CollisionedWith(Collider2D collider);
+
+}
+
 public class Hitboxes : MonoBehaviour
 {
     public LayerMask mask;
@@ -23,12 +31,13 @@ public class Hitboxes : MonoBehaviour
 
     private Collider2D[] colliders;
 
+    private IHitboxResponder _responder = null;
+
 
     private ColliderState _state;
 
     private void Start()
     {
-        //hitboxSize = new Vector2(1, 2);
         if (useSphere)
         {
             colliders = Physics2D.OverlapCircleAll(transform.position, radius, mask);
@@ -40,36 +49,28 @@ public class Hitboxes : MonoBehaviour
 
     }
 
-    private void Update()
+    public void HitboxUpdate()
     {
-
         if (_state == ColliderState.Closed) { return; }
 
-        colliders = Physics2D.OverlapBoxAll(transform.position, hitboxSize, mask);
-
-
-        if (colliders.Length > 0)
-        {
-
-            _state = ColliderState.Colliding;
-
-            // We should do something with the colliders
-
-        }
+        if(!useSphere)
+            colliders = Physics2D.OverlapBoxAll(transform.position, hitboxSize, mask);
         else
+            colliders = Physics2D.OverlapCircleAll(transform.position, radius, mask);
+
+
+        for (int i = 0; i < colliders.Length; i++)
         {
 
-            _state = ColliderState.Open;
+            Collider2D aCollider = colliders[i];
+
+            _responder?.CollisionedWith(aCollider);
 
         }
 
-    }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
-        Gizmos.DrawCube(Vector3.zero, new Vector3(hitboxSize.x * 2, hitboxSize.y * 2)); // Because size is halfExtents
+        _state = colliders.Length > 0 ? ColliderState.Colliding : ColliderState.Open;
+
 
     }
 
@@ -81,6 +82,34 @@ public class Hitboxes : MonoBehaviour
         Open,
 
         Colliding
+
+    }
+
+    public void StartCheckingCollision()
+    {
+        _state = ColliderState.Open;
+
+    }
+
+    public void StopCheckingCollision()
+    {
+        _state = ColliderState.Closed;
+
+    }
+
+    public void SetResponder(IHitboxResponder responder)
+    {
+        _responder = responder;
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
+
+        Gizmos.DrawCube(Vector2.zero, new Vector2(hitboxSize.x * 2, hitboxSize.y * 2)); // Because size is halfExtents
 
     }
 
@@ -108,18 +137,6 @@ public class Hitboxes : MonoBehaviour
                 break;
 
         }
-
-    }
-
-    public void startCheckingCollision()
-    {
-        _state = ColliderState.Open;
-
-    }
-
-    public void stopCheckingCollision()
-    {
-        _state = ColliderState.Closed;
 
     }
 }
