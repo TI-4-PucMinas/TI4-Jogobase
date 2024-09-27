@@ -8,7 +8,6 @@ using UnityEngine.Windows;
 public class Player : MonoBehaviour
 {
     protected Rigidbody2D rb;
-    private bool facingRight = true;
     protected bool airborne = false;
     protected float speed;
     protected float dashspeed;
