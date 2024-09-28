@@ -10,7 +10,7 @@ public class Hurtboxes : MonoBehaviour
 
     private Hitboxes.ColliderState _state = Hitboxes.ColliderState.Open;
 
-    public Vector2 hurtboxSize;
+    private Vector2 hurtboxSize;
 
     private void Start()
     {

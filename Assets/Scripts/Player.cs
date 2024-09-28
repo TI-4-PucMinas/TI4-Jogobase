@@ -14,20 +14,28 @@ public class Player : MonoBehaviour
     protected float dashspeed;
     protected bool is_dashing;
     private List<GameplayInput> currentInputs;
+    protected Animator animator;
+    public Attack attack;
+    private Vector2 attack_pos;
 
 
     // Start is called before the first frame update
     void Start()
-    { 
-        
+    {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        attack = GetComponent<Attack>();
+        attack_pos = new Vector2(transform.position.x + 0.6f, transform.position.y);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
+        if (rb.velocity.x == 0)
+        {
+            animator.SetTrigger("Stop");
+        }
+
     }
 
     public void Action_Player(List<GameplayInput> inputs)
@@ -36,12 +44,20 @@ public class Player : MonoBehaviour
         {
             if (inputs[i].Name == "Right")
             {
+                animator.SetTrigger("Run");
                 moveRight();
             }
             else if (inputs[i].Name == "Left")
             {
+                animator.SetTrigger("Run");
                 moveLeft();
             }
+            else if (inputs[i].Name == "X")
+            {
+                animator.SetTrigger("Attack");
+                attack.GetComponent<Attack>().Ataque(50,attack_pos);
+            }
+            
         }
     }
 
@@ -80,6 +96,8 @@ public class Player : MonoBehaviour
         speed = spd;
         dashspeed = d_spd;
     }
+
+
 
     //private void OnCollisionEnter2D(Collision2D collision)
     //{

@@ -38,8 +38,10 @@ public class Attack : MonoBehaviour,IHitboxResponder
         
     }
 
-    public void Ataque()
+    public void Ataque(int damage, Vector2 position)
     {
+        this.damage = damage;
+        this.position = position;
         hitbox.SetResponder(this);
     }
 

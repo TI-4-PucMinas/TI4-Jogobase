@@ -10,6 +10,8 @@ public class Protagonista : Player
         rb = GetComponent<Rigidbody2D>();
         speed = 5;
         dashspeed = 10;
+        attack = GetComponentInChildren<Attack>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
