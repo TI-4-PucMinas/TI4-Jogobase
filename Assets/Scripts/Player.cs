@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        attack = GetComponent<Attack>();
         attack_pos = new Vector2(transform.position.x + 0.6f, transform.position.y);
     }
 
