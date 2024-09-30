@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     protected bool onAirA = false;
     protected bool onAirW = false;
     protected bool isAttacking = false;
+    public Animator animator;
 
 
     public float jumpForce = 30f;
@@ -27,11 +28,13 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     void Update()
     {
+
+        
 
     }
 
@@ -60,6 +63,9 @@ public class Player : MonoBehaviour
         horizontal = context.ReadValue<Vector2>().x;
         //Debug.Log(horizontal);
 
+      
+
+
     }
 
 
@@ -67,6 +73,7 @@ public class Player : MonoBehaviour
     {
         if (context.performed && onGround && !isAttacking)
         {
+            
             moveInput = context.ReadValue<Vector2>();
 
             // Verifica se apenas 'W' está pressionado
@@ -74,6 +81,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("pulo");
                 rb.AddForce(new Vector2(0, 1) * jumpForce, ForceMode2D.Impulse);
+                onGround = false;
             }
             // Verifica se 'W + D' está pressionado
             else if (moveInput.x > 0 && moveInput.y > 0 && !onAirA && !onAirW)
@@ -81,6 +89,7 @@ public class Player : MonoBehaviour
                 Debug.Log("W+D");
                 rb.AddForce(new Vector2(1, 1) * jumpForce, ForceMode2D.Impulse);
                 onAirD = true;
+                onGround = false;
             }
             // Verifica se 'W + A' está pressionado
             else if (moveInput.x < 0 && moveInput.y > 0 && !onAirD && !onAirW)
@@ -88,7 +97,10 @@ public class Player : MonoBehaviour
                 Debug.Log("W+A");
                 rb.AddForce(new Vector2(-1, 1) * jumpForce, ForceMode2D.Impulse);
                 onAirA = true;
+                onGround = false;
             }
+
+            
         }
     }
 
