@@ -16,6 +16,28 @@ public class Protag : Player
 
     void Update()
     {
+        if (onGround && !isAttacking)
+        {
+
+            
+
+            if (horizontal == 0f) { animator.SetBool("Run", false); }
+
+            if (horizontal > 0f)
+            {
+                animator.SetBool("Run", true);
+                Debug.Log("andando pra direita");
+
+            }
+            else if (horizontal < 0f)
+            {
+                animator.SetBool("Run", true);
+                Debug.Log("andando pra outro lado");
+            }
+
+        }
+
+
         if (!isAttacking)
         {
             if (onGround)
