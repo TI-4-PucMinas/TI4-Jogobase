@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     protected bool onAirW = false;
     protected bool isAttacking = false;
 
+
     public float jumpForce = 30f;
     public float moveSpeed = 5f;
     public float attackDuration = 3f;
@@ -204,6 +205,8 @@ public class Player : MonoBehaviour
     {
         Debug.Log("AttackW");
         isAttacking = true;
+
+
 
         // Bloqueia todas as ações por um tempo determinado
         yield return new WaitForSeconds(3);
