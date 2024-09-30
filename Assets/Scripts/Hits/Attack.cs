@@ -53,6 +53,7 @@ public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
         frameChecker.hitFrameStart = startUp;
         frameChecker.hitFrameEnd = startUp + duration;
         hitbox.SetResponder(this);
+        frameChecker.Initialize(this, null);
     }
 
     //Interface de resposta de hitbox
