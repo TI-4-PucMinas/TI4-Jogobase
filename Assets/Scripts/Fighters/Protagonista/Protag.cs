@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Protagonista : Player
+public class Protag : Player
 {
 
     protected PlayerControls controls;

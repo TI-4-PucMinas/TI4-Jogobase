@@ -214,50 +214,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &815104294
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 815104296}
-  - component: {fileID: 815104295}
-  m_Layer: 0
-  m_Name: SceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &815104295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815104294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20cf248a0cd8fc4887e1f40731a43a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &815104296
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815104294}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.14, y: -6.87, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1207681445
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,8 +226,8 @@ GameObject:
   - component: {fileID: 1207681447}
   - component: {fileID: 1207681446}
   - component: {fileID: 1207681449}
-  - component: {fileID: 1207681451}
   - component: {fileID: 1207681452}
+  - component: {fileID: 1207681453}
   m_Layer: 0
   m_Name: Preyer
   m_TagString: Player
@@ -418,22 +374,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1207681451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1207681445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f71f3a4654da34581cda44c06f14f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpForce: 30
-  moveSpeed: 5
-  attackDuration: 3
-  horizontal: 0
 --- !u!114 &1207681452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 15d9d2ef315578646957cc652935d518, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: bcd586a0bbeb6b649b73d04d05ab34ca, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -461,7 +401,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1207681451}
+      - m_Target: {fileID: 1207681453}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: Move
         m_Mode: 0
@@ -477,7 +417,7 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1207681451}
+      - m_Target: {fileID: 1207681453}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: AttackW
         m_Mode: 0
@@ -501,7 +441,7 @@ MonoBehaviour:
     m_ActionName: UI/New action
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1207681451}
+      - m_Target: {fileID: 1207681453}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: Jump
         m_Mode: 0
@@ -517,7 +457,7 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/w,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1207681451}
+      - m_Target: {fileID: 1207681453}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: AttackM
         m_Mode: 0
@@ -533,7 +473,7 @@ MonoBehaviour:
     m_ActionName: Player/AttackM[/Keyboard/d,/Keyboard/g,/Keyboard/a]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1207681451}
+      - m_Target: {fileID: 1207681453}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: AttackS
         m_Mode: 0
@@ -549,7 +489,7 @@ MonoBehaviour:
     m_ActionName: Player/AttackS[/Keyboard/d,/Keyboard/h,/Keyboard/a]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1207681451}
+      - m_Target: {fileID: 1207681453}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: AttackSS
         m_Mode: 0
@@ -568,6 +508,22 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1207681453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207681445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a085f8498f8e640b36e065ea1bfefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 30
+  moveSpeed: 5
+  attackDuration: 3
+  horizontal: 0
 --- !u!1 &1981196244
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,4 +681,3 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1981196248}
   - {fileID: 1207681448}
-  - {fileID: 815104296}
