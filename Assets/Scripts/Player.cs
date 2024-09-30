@@ -5,7 +5,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour,IFrameCheckHandler
 {
     protected Rigidbody2D rb;
 
@@ -94,6 +94,28 @@ public class Player : MonoBehaviour
     {
         speed = spd;
         dashspeed = d_spd;
+    }
+
+
+
+    public void OnHitFrameStart()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnHitFrameEnd()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnLastFrameStart()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnLastFrameEnd()
+    {
+        throw new NotImplementedException();
     }
 
 

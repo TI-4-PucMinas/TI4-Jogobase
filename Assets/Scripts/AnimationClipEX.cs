@@ -26,6 +26,11 @@ public class AnimationClipEX
 
     }
 
+    public int TotalFrames()
+    {
+        return _totalFrames;
+    }
+
 
     public bool IsActive()
     {
@@ -49,4 +54,12 @@ public class AnimationClipEX
         double percentage = animator.NormalizedTime(layerNumber);
         return (percentage > PercentageOnFrame(_totalFrames - 1));
     }
+}
+
+public interface IFrameCheckHandler
+{
+    void OnHitFrameStart();
+    void OnHitFrameEnd();
+    void OnLastFrameStart();
+    void OnLastFrameEnd();
 }
