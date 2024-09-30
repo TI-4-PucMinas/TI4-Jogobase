@@ -5,7 +5,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class Player : MonoBehaviour,IFrameCheckHandler
+public class Player_Copy : MonoBehaviour,IFrameCheckHandler
 {
     protected Rigidbody2D rb;
 

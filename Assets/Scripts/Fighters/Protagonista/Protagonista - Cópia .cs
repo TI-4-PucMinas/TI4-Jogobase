@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Protagonista : Player
+public class Protagonista_Copy : Player_Copy
 {
     
     void Start()

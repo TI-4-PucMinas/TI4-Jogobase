@@ -67,9 +67,9 @@ public class Attack : MonoBehaviour,IHitboxResponder
 
     public enum AttackWeight
     {
-        Light,
+        Weak,
         Medium,
         Strong,
-        Heavy,
+        SuperStrong,
     }
 }

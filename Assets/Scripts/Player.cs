@@ -1,109 +1,663 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.Windows;
+using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
+
 
 public class Player : MonoBehaviour
 {
+
     protected Rigidbody2D rb;
+    protected bool onGround = false;
+    protected bool onAirD = false;
+    protected bool onAirA = false;
+    protected bool onAirW = false;
+    protected bool isAttacking = false;
 
-    protected bool airborne = false;
-    protected float speed;
-    protected float dashspeed;
-    protected bool is_dashing;
-    private List<GameplayInput> currentInputs;
-    protected Animator animator;
-    public Attack attack;
-    private Vector2 attack_pos;
+    public float jumpForce = 30f;
+    public float moveSpeed = 5f;
+    public float attackDuration = 3f;
+    public float horizontal = 0f;
 
+    protected Vector2 moveInput;
 
-    // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        attack_pos = new Vector2(transform.position.x + 0.6f, transform.position.y);
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (rb.velocity.x == 0)
-        {
-            animator.SetTrigger("Stop");
-        }
 
     }
 
-    public void Action_Player(List<GameplayInput> inputs)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
-        for(int i = 0; i < inputs.Count; i++)
+        if (collision.gameObject.CompareTag("Ground"))
         {
-            if (inputs[i].Name == "Right")
+            onGround = true;
+            onAirD = false;
+            onAirA = false;
+            onAirW = false;
+        }
+    }
+
+    protected void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            onGround = false;
+        }
+    }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+
+        horizontal = context.ReadValue<Vector2>().x;
+        //Debug.Log(horizontal);
+
+    }
+
+
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (context.performed && onGround && !isAttacking)
+        {
+            moveInput = context.ReadValue<Vector2>();
+
+            // Verifica se apenas 'W' está pressionado
+            if (moveInput.x == 0 && moveInput.y > 0 && !onAirD && !onAirA)
             {
-                animator.SetTrigger("Run");
-                moveRight();
+                Debug.Log("pulo");
+                rb.AddForce(new Vector2(0, 1) * jumpForce, ForceMode2D.Impulse);
             }
-            else if (inputs[i].Name == "Left")
+            // Verifica se 'W + D' está pressionado
+            else if (moveInput.x > 0 && moveInput.y > 0 && !onAirA && !onAirW)
             {
-                animator.SetTrigger("Run");
-                moveLeft();
+                Debug.Log("W+D");
+                rb.AddForce(new Vector2(1, 1) * jumpForce, ForceMode2D.Impulse);
+                onAirD = true;
             }
-            else if (inputs[i].Name == "X")
+            // Verifica se 'W + A' está pressionado
+            else if (moveInput.x < 0 && moveInput.y > 0 && !onAirD && !onAirW)
             {
-                animator.SetTrigger("Attack");
-                attack.GetComponent<Attack>().Ataque(50,attack_pos);
+                Debug.Log("W+A");
+                rb.AddForce(new Vector2(-1, 1) * jumpForce, ForceMode2D.Impulse);
+                onAirA = true;
             }
-            
         }
     }
 
-    protected void moveRight()
+    public void AttackW(InputAction.CallbackContext context)
     {
-        if (is_dashing)
+        if (context.performed) // Apenas quando a ação for completada
         {
-            rb.velocity = new Vector2 (dashspeed,rb.velocity.y);
+            var control = context.control;
+
+            if (!isAttacking && onGround)
+            {
+                // Verifica se o binding de apenas W foi acionado
+                if (control == Keyboard.current.fKey && !Keyboard.current.dKey.isPressed && !Keyboard.current.aKey.isPressed)
+                {
+                    StartCoroutine(AttackWCoroutine());
+                }
+                // Verifica se o binding W+D foi acionado
+                else if (Keyboard.current.fKey.isPressed && Keyboard.current.dKey.isPressed)
+                {
+                    StartCoroutine(AttackWDCoroutine());
+                }
+                // Verifica se o binding W+A foi acionado
+                else if (Keyboard.current.fKey.isPressed && Keyboard.current.aKey.isPressed)
+                {
+                    StartCoroutine(AttackWACoroutine());
+                }
+            }
         }
-        else
-        {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
-        }
-        
     }
 
-    protected void moveLeft()
+    public void AttackM(InputAction.CallbackContext context)
     {
-        if (is_dashing)
+        if (context.performed) // Apenas quando a ação for completada
         {
-            rb.velocity = new Vector2(-dashspeed, rb.velocity.y);
+            var control = context.control;
+
+            if (!isAttacking && onGround)
+            {
+                // Verifica se o binding de apenas M foi acionado
+                if (control == Keyboard.current.gKey && !Keyboard.current.dKey.isPressed && !Keyboard.current.aKey.isPressed)
+                {
+                    StartCoroutine(AttackMCoroutine());
+                }
+                // Verifica se o binding M+D foi acionado
+                else if (Keyboard.current.gKey.isPressed && Keyboard.current.dKey.isPressed)
+                {
+                    StartCoroutine(AttackMDCoroutine());
+                }
+                // Verifica se o binding M+A foi acionado
+                else if (Keyboard.current.gKey.isPressed && Keyboard.current.aKey.isPressed)
+                {
+                    StartCoroutine(AttackMACoroutine());
+                }
+            }
+
         }
-        else
+    }
+
+    public void AttackS(InputAction.CallbackContext context)
+    {
+        if (context.performed) // Apenas quando a ação for completada
         {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            var control = context.control;
+
+            if (!isAttacking && onGround)
+            {
+                // Verifica se o binding de apenas S foi acionado
+                if (control == Keyboard.current.hKey && !Keyboard.current.dKey.isPressed && !Keyboard.current.aKey.isPressed)
+                {
+                    StartCoroutine(AttackSCoroutine());
+                }
+                // Verifica se o binding s+D foi acionado
+                else if (Keyboard.current.hKey.isPressed && Keyboard.current.dKey.isPressed)
+                {
+                    StartCoroutine(AttackSDCoroutine());
+                }
+                // Verifica se o binding S+A foi acionado
+                else if (Keyboard.current.hKey.isPressed && Keyboard.current.aKey.isPressed)
+                {
+                    StartCoroutine(AttackSACoroutine());
+                }
+            }
         }
     }
 
-    private void HandleProcessedInputs(List<GameplayInput> inputs)
+    public void AttackSS(InputAction.CallbackContext context)
     {
-        currentInputs = inputs;
+        if (context.performed) // Apenas quando a ação for completada
+        {
+            var control = context.control;
+
+            if (!isAttacking && onGround)
+            {
+                // Verifica se o binding de apenas SS foi acionado
+                if (control == Keyboard.current.jKey && !Keyboard.current.dKey.isPressed && !Keyboard.current.aKey.isPressed)
+                {
+                    StartCoroutine(AttackSSCoroutine());
+                }
+                // Verifica se o binding SS+D foi acionado
+                else if (Keyboard.current.jKey.isPressed && Keyboard.current.dKey.isPressed)
+                {
+                    StartCoroutine(AttackSSDCoroutine());
+                }
+                // Verifica se o binding SS+A foi acionado
+                else if (Keyboard.current.jKey.isPressed && Keyboard.current.aKey.isPressed)
+                {
+                    StartCoroutine(AttackSSACoroutine());
+                }
+            }
+        }
     }
 
-    protected void SetStats(float spd, float d_spd)
+    private IEnumerator AttackWCoroutine()
     {
-        speed = spd;
-        dashspeed = d_spd;
+        Debug.Log("AttackW");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+        float timer = 3f;
+
+        while (timer > 0)
+        {
+            yield return null;
+            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackWDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackWACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.F))
+            {
+                StartCoroutine(AttackWCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackMACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackMDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G))
+            {
+                StartCoroutine(AttackMCoroutine());
+                yield break;
+            }
+            timer -= Time.deltaTime;
+        }
+
+        Debug.Log("Fim attackW");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackWDCoroutine()
+    {
+        Debug.Log("AttackWD");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+        float timer = 3f;
+
+        while (timer > 0)
+        {
+            yield return null;
+            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackWDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackWACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.F))
+            {
+                StartCoroutine(AttackWCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackMACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackMDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G))
+            {
+                StartCoroutine(AttackMCoroutine());
+                yield break;
+            }
+            timer -= Time.deltaTime;
+        }
+
+        Debug.Log("Fim attackWD");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackWACoroutine()
+    {
+        Debug.Log("AttackWA");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+        float timer = 3f;
+
+        while (timer > 0)
+        {
+            yield return null;
+            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackWDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackWACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.F))
+            {
+                StartCoroutine(AttackWCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackMACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackMDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G))
+            {
+                StartCoroutine(AttackMCoroutine());
+                yield break;
+            }
+            timer -= Time.deltaTime;
+        }
+
+        Debug.Log("Fim attackWA");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackMCoroutine()
+    {
+        Debug.Log("AttackM");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+        float timer = 3f;
+
+        while (timer > 0)
+        {
+            yield return null;
+            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackMDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackMACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackSACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackSDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H))
+            {
+                StartCoroutine(AttackSCoroutine());
+                yield break;
+            }
+            timer -= Time.deltaTime;
+        }
+
+        Debug.Log("Fim attackM");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackMDCoroutine()
+    {
+        Debug.Log("AttackMD");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+        float timer = 3f;
+
+        while (timer > 0)
+        {
+            yield return null;
+            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackMACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G))
+            {
+                StartCoroutine(AttackMCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackSACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackSDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H))
+            {
+                StartCoroutine(AttackSCoroutine());
+                yield break;
+            }
+            timer -= Time.deltaTime;
+        }
+
+        Debug.Log("Fim attackMD");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackMACoroutine()
+    {
+        Debug.Log("AttackMA");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+        float timer = 3f;
+
+        while (timer > 0)
+        {
+            yield return null;
+            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackMDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.G))
+            {
+                StartCoroutine(AttackMCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackSACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackSDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H))
+            {
+                StartCoroutine(AttackSCoroutine());
+                yield break;
+            }
+            timer -= Time.deltaTime;
+        }
+
+        Debug.Log("Fim attackMA");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackSCoroutine()
+    {
+        Debug.Log("AttackS");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+        float timer = 3f;
+
+        while (timer > 0)
+        {
+            yield return null;
+            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackSDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackSACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackSSACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackSSDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.J))
+            {
+                StartCoroutine(AttackSSCoroutine());
+                yield break;
+            }
+            timer -= Time.deltaTime;
+        }
+
+        Debug.Log("Fim attackS");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackSDCoroutine()
+    {
+        Debug.Log("AttackSD");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+        float timer = 3f;
+
+        while (timer > 0)
+        {
+            yield return null;
+            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackSACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H))
+            {
+                StartCoroutine(AttackSCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackSSACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackSSDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.J))
+            {
+                StartCoroutine(AttackSSCoroutine());
+                yield break;
+            }
+            timer -= Time.deltaTime;
+        }
+
+        Debug.Log("Fim attackSD");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackSACoroutine()
+    {
+        Debug.Log("AttackSA");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+        float timer = 3f;
+
+        while (timer > 0)
+        {
+            yield return null;
+            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackSDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.H))
+            {
+                StartCoroutine(AttackSCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.A))
+            {
+                StartCoroutine(AttackSSACoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.D))
+            {
+                StartCoroutine(AttackSSDCoroutine());
+                yield break;
+            }
+            if (UnityEngine.Input.GetKey(KeyCode.J))
+            {
+                StartCoroutine(AttackSSCoroutine());
+                yield break;
+            }
+            timer -= Time.deltaTime;
+        }
+
+        Debug.Log("Fim attackSA");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackSSCoroutine()
+    {
+        Debug.Log("AttackSS");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+        Debug.Log("Fim attackSS");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackSSDCoroutine()
+    {
+        Debug.Log("AttackSSD");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+
+        Debug.Log("Fim attackSSD");
+        isAttacking = false;
+    }
+
+    private IEnumerator AttackSSACoroutine()
+    {
+        Debug.Log("AttackSSA");
+        isAttacking = true;
+
+        // Bloqueia todas as ações por um tempo determinado
+        yield return new WaitForSeconds(3);
+
+
+        Debug.Log("Fim attackSSA");
+        isAttacking = false;
     }
 
 
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    // Resetar o estado de "airborne" quando colidir com o ch�o
-    //  if (collision.gameObject.CompareTag("Ground"))
-    //{
-    //  airborne = false;
-    //}
-    //}
 }
