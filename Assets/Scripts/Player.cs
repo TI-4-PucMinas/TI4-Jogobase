@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 
+
 public class Player : MonoBehaviour
 {
 
@@ -53,6 +54,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             onGround = false;
+            
         }
     }
 
@@ -80,7 +82,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("pulo");
                 rb.AddForce(new Vector2(0, 1) * jumpForce, ForceMode2D.Impulse);
-                onGround = false;
+                
             }
             // Verifica se 'W + D' está pressionado
             else if (moveInput.x > 0 && moveInput.y > 0 && !onAirA && !onAirW)
@@ -88,7 +90,7 @@ public class Player : MonoBehaviour
                 Debug.Log("W+D");
                 rb.AddForce(new Vector2(1, 1) * jumpForce, ForceMode2D.Impulse);
                 onAirD = true;
-                onGround = false;
+                
             }
             // Verifica se 'W + A' está pressionado
             else if (moveInput.x < 0 && moveInput.y > 0 && !onAirD && !onAirW)
@@ -96,7 +98,7 @@ public class Player : MonoBehaviour
                 Debug.Log("W+A");
                 rb.AddForce(new Vector2(-1, 1) * jumpForce, ForceMode2D.Impulse);
                 onAirA = true;
-                onGround = false;
+               
             }
 
             

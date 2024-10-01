@@ -16,6 +16,19 @@ public class Protag : Player
 
     void Update()
     {
+        if (!onGround)
+        {
+            Debug.Log("no ar");
+            animator.SetBool("Pulando", true);
+        }
+
+        if (onGround)
+        {
+            Debug.Log("no chao");
+            animator.SetBool("Pulando", false);
+        }
+
+
         if (onGround && !isAttacking)
         {
 
