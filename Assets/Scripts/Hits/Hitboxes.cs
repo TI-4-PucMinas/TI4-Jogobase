@@ -21,6 +21,8 @@ public class Hitboxes : MonoBehaviour
 
     private Vector2 hitboxSize = Vector2.zero;
 
+    private Attack ataques;
+
     private Vector2 position;
 
     public float radius = 0f;
@@ -40,6 +42,7 @@ public class Hitboxes : MonoBehaviour
 
     private void Start()
     {
+        position = transform.parent.position;
         if (useSphere)
         {
             colliders = Physics2D.OverlapCircleAll(transform.position, radius, mask);
@@ -48,11 +51,14 @@ public class Hitboxes : MonoBehaviour
         {
             colliders = Physics2D.OverlapBoxAll(transform.position, hitboxSize, mask);
         }
+        gameObject.SetActive(false);
+        ataques = GetComponentInParent<Attack>();
 
     }
 
     public void HitboxUpdate()
     {
+       
         if (_state == ColliderState.Closed) { return; }
 
         if(!useSphere)
@@ -101,13 +107,13 @@ public class Hitboxes : MonoBehaviour
     public void SetResponder(IHitboxResponder responder)
     {
         _responder = responder;
-
+        
     }
 
-    public void SetHitbox(Vector2 hitboxSize, Vector2 position)
+    public void SetHitbox(Vector2 hitboxSize)
     {
         this.hitboxSize = hitboxSize;
-        this.position = position;
+        gameObject.SetActive(true);
     }
 
     private void OnDrawGizmos()

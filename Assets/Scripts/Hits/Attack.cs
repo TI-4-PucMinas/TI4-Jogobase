@@ -16,7 +16,9 @@ public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
     public Vector2 position;
 
     //Frame Checker
-    private FrameChecker frameChecker;
+    public FrameChecker frameChecker;
+
+    
 
     //Dano do ataque
     public int damage;
@@ -42,18 +44,19 @@ public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
     }
 
     //Método para uso do ataque
-    public void Ataque(int damage, Vector2 position,int duration, int cooldown, int startUp, Vector2 hitboxSize)
+    public void Ataque(int damage, Vector2 position,int duration, int cooldown, int startUp, Vector2 hitboxSize, AnimationClipEX clipEX)
     {
         this.duration = duration;
         this.cooldown = cooldown;
         this.startUp = startUp;
         this.damage = damage;
         this.position = position;
+        transform.position = position;
         this.hitboxSize = hitboxSize;
         frameChecker.hitFrameStart = startUp;
         frameChecker.hitFrameEnd = startUp + duration;
         hitbox.SetResponder(this);
-        frameChecker.Initialize(this, null);
+        frameChecker.Initialize(this, clipEX);
     }
 
     //Interface de resposta de hitbox
@@ -66,22 +69,22 @@ public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
     //Interface de resposta de frames
     public void OnHitFrameStart()
     {
-        hitbox.SetHitbox(hitboxSize, position);
+        hitbox.SetHitbox(hitboxSize);
     }
 
     public void OnHitFrameEnd()
     {
-        hitbox.SetHitbox(Vector2.zero, position);
+        hitbox.gameObject.SetActive(false);
     }
 
     public void OnLastFrameStart()
     {
-        throw new System.NotImplementedException();
+       return;
     }
 
     public void OnLastFrameEnd()
     {
-        throw new System.NotImplementedException();
+       return;
     }
 
     //Enums para os tipos de ataques
