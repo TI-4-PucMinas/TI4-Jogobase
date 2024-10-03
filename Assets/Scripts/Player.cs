@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     protected bool isAttacking = false;
     public Animator animator;
     protected Attack atacante;
+    private PegaAnimation pegaAnimation;
     private int anim = 0;
 
     //Clipe de animação
@@ -36,7 +37,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        
+        pegaAnimation = ScriptableObject.CreateInstance<PegaAnimation>();
     }
 
     void Update()
@@ -225,13 +226,10 @@ public class Player : MonoBehaviour
         Debug.Log("AttackW");
         isAttacking = true;
         animator.SetBool("Attack", true);
-        while (!animator.GetNextAnimatorStateInfo(0).IsName("Attack1")) 
-        {
-            yield return null; 
-        }
-        clipEX.clip = animator.GetCurrentAnimatorClipInfo(0)[0].clip;
+        clipEX.clip = pegaAnimation.GetClip();
         clipEX.animatorStateName = clipEX.clip.name;
         clipEX.Initialize();
+
         duration = 13;
         startup = 5;
         cooldown = 13;
@@ -702,6 +700,23 @@ public class Player : MonoBehaviour
 
         Debug.Log("Fim attackSSA");
         isAttacking = false;
+    }
+
+    AnimationClip CaptureAnimationInfo()
+    {
+        // Pega o estado atual do Animator
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        // Verifica se está na animação correta ou qualquer animação em execução
+        if (stateInfo.normalizedTime < 1.0f)
+        {
+            // Pega o clipe que está rodando
+            AnimationClip clip = animator.GetCurrentAnimatorClipInfo(0)[0].clip;
+
+            return clip;
+        }
+
+        return null;
     }
 
 }
