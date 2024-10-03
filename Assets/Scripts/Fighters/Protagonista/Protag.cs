@@ -12,6 +12,13 @@ public class Protag : Player
     {
         controls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
+        atacante = GetComponentInChildren<Attack>();
+        clipEX = new AnimationClipEX
+        {
+            animator = animator,
+            layerNumber = 0,
+        };
+
     }
 
     void Update()
@@ -31,8 +38,6 @@ public class Protag : Player
 
         if (onGround && !isAttacking)
         {
-
-            
 
             if (horizontal == 0f) { animator.SetBool("Run", false); }
 

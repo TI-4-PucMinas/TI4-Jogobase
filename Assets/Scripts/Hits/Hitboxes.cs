@@ -19,9 +19,13 @@ public class Hitboxes : MonoBehaviour
 
     public bool useSphere = false;
 
-    public Vector2 hitboxSize = Vector2.one;
+    private Vector2 hitboxSize = Vector2.zero;
 
-    public float radius = 0.5f;
+    private Attack ataques;
+
+    private Vector2 position;
+
+    public float radius = 0f;
 
     public Color inactiveColor;
 
@@ -38,6 +42,7 @@ public class Hitboxes : MonoBehaviour
 
     private void Start()
     {
+        position = transform.parent.position;
         if (useSphere)
         {
             colliders = Physics2D.OverlapCircleAll(transform.position, radius, mask);
@@ -46,17 +51,20 @@ public class Hitboxes : MonoBehaviour
         {
             colliders = Physics2D.OverlapBoxAll(transform.position, hitboxSize, mask);
         }
+        gameObject.SetActive(false);
+        ataques = GetComponentInParent<Attack>();
 
     }
 
     public void HitboxUpdate()
     {
+       
         if (_state == ColliderState.Closed) { return; }
 
         if(!useSphere)
-            colliders = Physics2D.OverlapBoxAll(transform.position, hitboxSize, mask);
+            colliders = Physics2D.OverlapBoxAll(position, hitboxSize, mask);
         else
-            colliders = Physics2D.OverlapCircleAll(transform.position, radius, mask);
+            colliders = Physics2D.OverlapCircleAll(position, radius, mask);
 
 
         for (int i = 0; i < colliders.Length; i++)
@@ -70,7 +78,6 @@ public class Hitboxes : MonoBehaviour
 
 
         _state = colliders.Length > 0 ? ColliderState.Colliding : ColliderState.Open;
-
 
     }
 
@@ -100,7 +107,13 @@ public class Hitboxes : MonoBehaviour
     public void SetResponder(IHitboxResponder responder)
     {
         _responder = responder;
+        
+    }
 
+    public void SetHitbox(Vector2 hitboxSize)
+    {
+        this.hitboxSize = hitboxSize;
+        gameObject.SetActive(true);
     }
 
     private void OnDrawGizmos()
@@ -113,7 +126,7 @@ public class Hitboxes : MonoBehaviour
 
     }
 
-    private void checkGizmoColor()
+    private void CheckGizmoColor()
     {
         switch (_state)
         {

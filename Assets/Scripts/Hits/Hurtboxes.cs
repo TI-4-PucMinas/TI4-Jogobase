@@ -8,8 +8,6 @@ public class Hurtboxes : MonoBehaviour
 
     public Collider2D colisor;
 
-    private Hitboxes.ColliderState _state = Hitboxes.ColliderState.Open;
-
     private Vector2 hurtboxSize;
 
     private void Start()
@@ -17,7 +15,6 @@ public class Hurtboxes : MonoBehaviour
         hurtboxSize = transform.parent.lossyScale.normalized;
         hurtboxSize.y += 0.5f;
         colisor = Physics2D.OverlapBox(transform.parent.transform.position, hurtboxSize, 0);
-
     }
 
     public bool GetHitBy(Attack attack)
@@ -49,5 +46,17 @@ public class Hurtboxes : MonoBehaviour
 
     }
 
-   
+    public void Crouch()
+    {
+        hurtboxSize.y /= 2;
+        colisor = Physics2D.OverlapBox(transform.parent.transform.position, hurtboxSize, 0);
+    }
+
+    public void Stand()
+    {
+        hurtboxSize.y *= 2;
+        colisor = Physics2D.OverlapBox(transform.parent.transform.position, hurtboxSize, 0);
+    }
+
+
 }

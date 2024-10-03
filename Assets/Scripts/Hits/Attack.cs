@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour,IHitboxResponder
+public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
 {
     //Propriedades de interação do ataque
     public AttackBlock attackBlock;
@@ -14,6 +14,11 @@ public class Attack : MonoBehaviour,IHitboxResponder
     public Vector2 hitboxSize;
     public float hitboxRadius;
     public Vector2 position;
+
+    //Frame Checker
+    public FrameChecker frameChecker;
+
+    
 
     //Dano do ataque
     public int damage;
@@ -29,7 +34,7 @@ public class Attack : MonoBehaviour,IHitboxResponder
     // Start is called before the first frame update
     void Start()
     {
-        
+        frameChecker = new FrameChecker();
     }
 
     // Update is called once per frame
@@ -38,17 +43,48 @@ public class Attack : MonoBehaviour,IHitboxResponder
         
     }
 
-    public void Ataque(int damage, Vector2 position)
+    //Método para uso do ataque
+    public void Ataque(int damage, Vector2 position,int duration, int cooldown, int startUp, Vector2 hitboxSize, AnimationClipEX clipEX)
     {
+        this.duration = duration;
+        this.cooldown = cooldown;
+        this.startUp = startUp;
         this.damage = damage;
         this.position = position;
+        transform.position = position;
+        this.hitboxSize = hitboxSize;
+        frameChecker.hitFrameStart = startUp;
+        frameChecker.hitFrameEnd = startUp + duration;
         hitbox.SetResponder(this);
+        frameChecker.Initialize(this, clipEX);
     }
 
+    //Interface de resposta de hitbox
     public void CollisionedWith(Collider2D collider)
     {
         if (collider.TryGetComponent<Hurtboxes>(out var hurtbox))
             hurtbox.GetHitBy(this);
+    }
+
+    //Interface de resposta de frames
+    public void OnHitFrameStart()
+    {
+        hitbox.SetHitbox(hitboxSize);
+    }
+
+    public void OnHitFrameEnd()
+    {
+        hitbox.gameObject.SetActive(false);
+    }
+
+    public void OnLastFrameStart()
+    {
+       return;
+    }
+
+    public void OnLastFrameEnd()
+    {
+       return;
     }
 
     //Enums para os tipos de ataques

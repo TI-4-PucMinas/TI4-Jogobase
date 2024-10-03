@@ -18,6 +18,12 @@ public class Player : MonoBehaviour
     protected bool onAirW = false;
     protected bool isAttacking = false;
     public Animator animator;
+    protected Attack atacante;
+    private int anim = 0;
+
+    //Clipe de animação
+    public AnimationClipEX clipEX;
+
 
     public float jumpForce = 30f;
     public float moveSpeed = 5f;
@@ -68,7 +74,6 @@ public class Player : MonoBehaviour
 
 
     }
-
 
     public void Jump(InputAction.CallbackContext context)
     {
@@ -218,9 +223,25 @@ public class Player : MonoBehaviour
     {
         Debug.Log("AttackW");
         isAttacking = true;
+        clipEX.clip = animator.GetCurrentAnimatorClipInfo(0)[0].clip;
+        clipEX.animatorStateName = clipEX.clip.name;
+        clipEX.Initialize();
+        animator.SetBool("Attack",true);
+        anim = clipEX.TotalFrames();
+
+        atacante.Ataque(50, new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),20,5,6,new Vector2(0.7f,0.5f),clipEX);
+
+        for(int i = 0; i < anim; i++)
+        {
+            atacante.hitbox.HitboxUpdate();
+            atacante.frameChecker.CheckFrames();
+            yield return null;
+        }
+
+        
 
         // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
+        //yield return new WaitForSeconds(3);
 
         float timer = 3f;
 
