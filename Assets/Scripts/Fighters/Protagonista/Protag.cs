@@ -7,10 +7,12 @@ public class Protag : Player
 {
 
     protected PlayerControls controls;
+
     //limites da tela
     private float minX, maxX, minY, maxY;
     void Start()
     {
+        atacante = GetComponentInChildren<Attack>();
         controls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
 

@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     protected Attack atacante;
     private PegaAnimation pegaAnimation;
     private int anim = 0;
-    public GameObject hitbox;
 
     //Clipe de animação
     public AnimationClipEX clipEX;
@@ -228,7 +227,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("AttackW");
         isAttacking = true;
-        animator.SetBool("Attack", true);
+        StartCoroutine(TacaAnimation("Attack"));
         clipEX.clip = pegaAnimation.GetClip();
         clipEX.animatorStateName = clipEX.clip.name;
         clipEX.Initialize();
@@ -236,7 +235,7 @@ public class Player : MonoBehaviour
         duration = 13;
         startup = 5;
         cooldown = 13;
-        atacante.Ataque(50, new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),duration,startup,cooldown,new Vector2(0.7f,0.5f),clipEX);
+        atacante.Ataque(50, new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),duration,startup,cooldown,new Vector2(0.7f,0.5f));
         int c = 0;
         for(int i = 0;!clipEX.BiggerOrEqualThanFrame(duration + startup); i++)
         {
@@ -248,7 +247,7 @@ public class Player : MonoBehaviour
             }
             yield return null;
         }
-        animator.SetBool("Attack", false);
+        StartCoroutine(CloseAnimation("Attack"));
 
 
 
@@ -400,25 +399,41 @@ public class Player : MonoBehaviour
 
     private IEnumerator AttackMCoroutine()
     {
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
         //Inicio ataque M
         Debug.Log("attackM");
         //Set isAttacking como true
         isAttacking = true;
-        //Liga a hitbox
-        hitbox.SetActive(true);
+
         //Liga a animação de ataque
-        animator.SetBool("Attack", true);
-        //Segura todo o processo por 0.5 segundos
-        yield return new WaitForSeconds(0.5f);
-        //Desliga a hitbox
-        hitbox.SetActive(false);
+        StartCoroutine(TacaAnimation("Attack"));
+        for (int i = 0; i < startup; i++)
+        {
+            yield return null;
+        }
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown,
+            new Vector2(0.7f, 0.5f)
+        );
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for(int i = 0; i < duration + cooldown; i++)
+        {
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+        atacante.hitbox.StopCheckingCollision();
         //Desliga a animação de ataque
-        animator.SetBool("Attack", false);
+        StartCoroutine(CloseAnimation("Attack"));
         //Liga a animação de Retorno
-        animator.SetBool("Returning", true);
-        //Lógica de gatling
-        float timer = 1f;
-        while (timer > 0)
+        StartCoroutine(TacaAnimation("Returning"));
+        for (int i = 0; i < 30; i++)
         {
             yield return null;
             if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
@@ -446,11 +461,11 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackSCoroutine());
                 yield break;
             }
-            timer -= Time.deltaTime;
+            yield return null;
         }
         //Se não rolar de ir pra lugar nenhum
         //Cancela a animação de Retorno
-        animator.SetBool("Returning", false);
+        StartCoroutine(CloseAnimation("Returning"));
         //Fim do ataque M
         isAttacking = false;
         Debug.Log("Fim attackM");
@@ -461,10 +476,10 @@ public class Player : MonoBehaviour
         Debug.Log("attackMD");
         isAttacking = true;
 
-        hitbox.SetActive(true);
+        
         animator.SetBool("Attack", true);
         yield return new WaitForSeconds(0.5f);
-        hitbox.SetActive(false);
+        
         animator.SetBool("Attack", false);
 
         animator.SetBool("Returning", true);
@@ -511,11 +526,11 @@ public class Player : MonoBehaviour
         Debug.Log("attackMA");
         isAttacking = true;
 
-        hitbox.SetActive(true);
+        
         Debug.Log("Inicio"+Time.deltaTime);
         animator.SetBool("Attack", true);
         yield return new WaitForSeconds(0.5f);
-        hitbox.SetActive(false);
+        
         animator.SetBool("Attack", false);
         Debug.Log("Fim"+Time.deltaTime);
 
@@ -747,4 +762,15 @@ public class Player : MonoBehaviour
         return null;
     }
 
+    private IEnumerator TacaAnimation(string anim)
+    {
+        animator.SetBool(anim, true);
+        yield break;
+    }
+
+    private IEnumerator CloseAnimation(string anim)
+    {
+        animator.SetBool(anim, false);
+        yield break;
+    }
 }
