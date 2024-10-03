@@ -7,9 +7,12 @@ public class Protag : Player
 {
 
     protected PlayerControls controls;
+    private GerenciadorDvida gerenciadorDvida;
+
 
     void Start()
     {
+        gerenciadorDvida = GetComponent<GerenciadorDvida>();
         controls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         atacante = GetComponentInChildren<Attack>();
@@ -23,6 +26,13 @@ public class Protag : Player
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.O)) // Exemplo para receber dano
+        {
+            ReceberDano(10);
+        }
+
+
         if (!onGround)
         {
             animator.SetBool("Pulando", true);
@@ -66,6 +76,14 @@ public class Protag : Player
             {
                 rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
             }
+        }
+    }
+
+    public void ReceberDano(float dano)
+    {
+        if (gerenciadorDvida != null)
+        {
+            gerenciadorDvida.machuca(dano); // Modifica a barra de vida do protagonista
         }
     }
 }

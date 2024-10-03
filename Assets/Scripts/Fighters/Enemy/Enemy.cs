@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class Enemy : Player
 {
-    // Start is called before the first frame update
+    private GerenciadorDvida gerenciadorDvidaEnemy;
+
     void Start()
     {
         
+        gerenciadorDvidaEnemy = GetComponent<GerenciadorDvida>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.P)) // Exemplo para receber dano
+        {
+            ReceberDano(10);
+        }
+    }
+
+    public void ReceberDano(float dano)
+    {
+        if (gerenciadorDvidaEnemy != null)
+        {
+            gerenciadorDvidaEnemy.machuca(dano); 
+        }
     }
 }
