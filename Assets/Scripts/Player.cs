@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 
+
 public class Player : MonoBehaviour
 {
 
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     protected Attack atacante;
     private PegaAnimation pegaAnimation;
     private int anim = 0;
+    public GameObject hitbox;
 
     //Clipe de animação
     public AnimationClipEX clipEX;
@@ -63,6 +65,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             onGround = false;
+            
         }
     }
 
@@ -81,7 +84,7 @@ public class Player : MonoBehaviour
     {
         if (context.performed && onGround && !isAttacking)
         {
-            
+            Debug.Log("Tentando pular");
             moveInput = context.ReadValue<Vector2>();
 
             // Verifica se apenas 'W' está pressionado
@@ -89,7 +92,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("pulo");
                 rb.AddForce(new Vector2(0, 1) * jumpForce, ForceMode2D.Impulse);
-                onGround = false;
+                
             }
             // Verifica se 'W + D' está pressionado
             else if (moveInput.x > 0 && moveInput.y > 0 && !onAirA && !onAirW)
@@ -97,7 +100,7 @@ public class Player : MonoBehaviour
                 Debug.Log("W+D");
                 rb.AddForce(new Vector2(1, 1) * jumpForce, ForceMode2D.Impulse);
                 onAirD = true;
-                onGround = false;
+                
             }
             // Verifica se 'W + A' está pressionado
             else if (moveInput.x < 0 && moveInput.y > 0 && !onAirD && !onAirW)
@@ -105,7 +108,7 @@ public class Player : MonoBehaviour
                 Debug.Log("W+A");
                 rb.AddForce(new Vector2(-1, 1) * jumpForce, ForceMode2D.Impulse);
                 onAirA = true;
-                onGround = false;
+               
             }
 
             
@@ -298,6 +301,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("AttackWD");
         isAttacking = true;
+        animator.SetBool("Attack", true);
 
         // Bloqueia todas as ações por um tempo determinado
         yield return new WaitForSeconds(3);
@@ -396,14 +400,24 @@ public class Player : MonoBehaviour
 
     private IEnumerator AttackMCoroutine()
     {
-        Debug.Log("AttackM");
+        //Inicio ataque M
+        Debug.Log("attackM");
+        //Set isAttacking como true
         isAttacking = true;
-
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
-
-        float timer = 3f;
-
+        //Liga a hitbox
+        hitbox.SetActive(true);
+        //Liga a animação de ataque
+        animator.SetBool("Attack", true);
+        //Segura todo o processo por 0.5 segundos
+        yield return new WaitForSeconds(0.5f);
+        //Desliga a hitbox
+        hitbox.SetActive(false);
+        //Desliga a animação de ataque
+        animator.SetBool("Attack", false);
+        //Liga a animação de Retorno
+        animator.SetBool("Returning", true);
+        //Lógica de gatling
+        float timer = 1f;
         while (timer > 0)
         {
             yield return null;
@@ -434,20 +448,28 @@ public class Player : MonoBehaviour
             }
             timer -= Time.deltaTime;
         }
-
-        Debug.Log("Fim attackM");
+        //Se não rolar de ir pra lugar nenhum
+        //Cancela a animação de Retorno
+        animator.SetBool("Returning", false);
+        //Fim do ataque M
         isAttacking = false;
+        Debug.Log("Fim attackM");
     }
 
     private IEnumerator AttackMDCoroutine()
     {
-        Debug.Log("AttackMD");
+        Debug.Log("attackMD");
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
+        hitbox.SetActive(true);
+        animator.SetBool("Attack", true);
+        yield return new WaitForSeconds(0.5f);
+        hitbox.SetActive(false);
+        animator.SetBool("Attack", false);
 
-        float timer = 3f;
+        animator.SetBool("Returning", true);
+
+        float timer = 1f;
 
         while (timer > 0)
         {
@@ -479,20 +501,26 @@ public class Player : MonoBehaviour
             }
             timer -= Time.deltaTime;
         }
-
+        animator.SetBool("Returning", false);
         Debug.Log("Fim attackMD");
         isAttacking = false;
     }
 
     private IEnumerator AttackMACoroutine()
     {
-        Debug.Log("AttackMA");
+        Debug.Log("attackMA");
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
+        hitbox.SetActive(true);
+        Debug.Log("Inicio"+Time.deltaTime);
+        animator.SetBool("Attack", true);
+        yield return new WaitForSeconds(0.5f);
+        hitbox.SetActive(false);
+        animator.SetBool("Attack", false);
+        Debug.Log("Fim"+Time.deltaTime);
 
-        float timer = 3f;
+        animator.SetBool("Returning", true);
+        float timer = 1f;
 
         while (timer > 0)
         {
@@ -524,7 +552,7 @@ public class Player : MonoBehaviour
             }
             timer -= Time.deltaTime;
         }
-
+        animator.SetBool("Returning", false);
         Debug.Log("Fim attackMA");
         isAttacking = false;
     }
