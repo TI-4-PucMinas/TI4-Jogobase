@@ -25,13 +25,11 @@ public class Protag : Player
     {
         if (!onGround)
         {
-            Debug.Log("no ar");
             animator.SetBool("Pulando", true);
         }
 
         if (onGround)
         {
-            Debug.Log("no chao");
             animator.SetBool("Pulando", false);
         }
 
@@ -44,13 +42,11 @@ public class Protag : Player
             if (horizontal > 0f)
             {
                 animator.SetBool("Run", true);
-                Debug.Log("andando pra direita");
 
             }
             else if (horizontal < 0f)
             {
                 animator.SetBool("Run", true);
-                Debug.Log("andando pra outro lado");
             }
 
         }

@@ -19,7 +19,7 @@ public class Hitboxes : MonoBehaviour
 
     public bool useSphere = false;
 
-    private Vector2 hitboxSize = Vector2.zero;
+    public Vector2 hitboxSize = Vector2.zero;
 
     private Attack ataques;
 

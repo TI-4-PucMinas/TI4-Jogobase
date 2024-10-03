@@ -155,6 +155,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   useSphere: 0
+  hitboxSize: {x: 0, y: 0}
   radius: 0
   inactiveColor: {r: 0, g: 0, b: 0, a: 0}
   collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
@@ -494,6 +495,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1448295132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1448295134}
+  - component: {fileID: 1448295133}
+  m_Layer: 0
+  m_Name: Hitboxteste
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1448295133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448295132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6edca900b28124abbc4026b72c5015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
+  useSphere: 0
+  hitboxSize: {x: 1, y: 0.5}
+  radius: 0
+  inactiveColor: {r: 0, g: 0, b: 0, a: 0}
+  collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
+  collidingColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!4 &1448295134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448295132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.75, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1472668452}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1472668452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5162885215158375815, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
@@ -581,6 +635,10 @@ MonoBehaviour:
   hitboxSize: {x: 0, y: 0}
   hitboxRadius: 0
   position: {x: 0, y: 0}
+  frameChecker:
+    hitFrameStart: 0
+    hitFrameEnd: 0
+    totalFrames: 0
   damage: 500
   duration: 3
   cooldown: 8
@@ -804,6 +862,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  hitbox: {fileID: 0}
+  clipEX:
+    animator: {fileID: 0}
+    clip: {fileID: 0}
+    animatorStateName: 
+    layerNumber: 0
   jumpForce: 30
   moveSpeed: 5
   attackDuration: 3
@@ -1245,6 +1309,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7366587248657818352, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+      propertyPath: hitbox
+      value: 
+      objectReference: {fileID: 1448295132}
+    - target: {fileID: 7366587248657818352, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 7814774337598245894}
@@ -1271,6 +1339,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5162885215158375815, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1571033822}
+    - targetCorrespondingSourceObject: {fileID: 5162885215158375815, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1448295134}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4517780371199911112, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       insertIndex: -1

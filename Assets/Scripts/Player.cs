@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public Animator animator;
     protected Attack atacante;
     private int anim = 0;
+    public GameObject hitbox;
 
     //Clipe de animação
     public AnimationClipEX clipEX;
@@ -302,6 +303,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("AttackWD");
         isAttacking = true;
+        animator.SetBool("Attack", true);
 
         // Bloqueia todas as ações por um tempo determinado
         yield return new WaitForSeconds(3);
@@ -400,14 +402,17 @@ public class Player : MonoBehaviour
 
     private IEnumerator AttackMCoroutine()
     {
-        Debug.Log("AttackM");
+        Debug.Log("attackM");
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
+        hitbox.SetActive(true);
+        animator.SetBool("Attack", true);
+        yield return new WaitForSeconds(0.5f);
+        hitbox.SetActive(false);
+        animator.SetBool("Attack", false);
 
-        float timer = 3f;
-
+        animator.SetBool("Returning", true);
+        float timer = 2f;
         while (timer > 0)
         {
             yield return null;
@@ -438,7 +443,7 @@ public class Player : MonoBehaviour
             }
             timer -= Time.deltaTime;
         }
-
+        animator.SetBool("Returning", false);
         Debug.Log("Fim attackM");
         isAttacking = false;
     }
@@ -448,8 +453,18 @@ public class Player : MonoBehaviour
         Debug.Log("AttackMD");
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
+        hitbox.SetActive(true);
+
+        animator.SetBool("Attack", true);
+        animator.SetBool("Run", false);
+
+        // Bloqueia todas as ações por um tempo determinado (1 segundo)
         yield return new WaitForSeconds(3);
+
+        // Desabilita a hitbox após 1 segundo
+        hitbox.SetActive(false);
+
+        animator.SetBool("Attack", false);
 
         float timer = 3f;
 
