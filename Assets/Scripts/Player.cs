@@ -402,16 +402,23 @@ public class Player : MonoBehaviour
 
     private IEnumerator AttackMCoroutine()
     {
+        //Inicio ataque M
         Debug.Log("attackM");
+        //Set isAttacking como true
         isAttacking = true;
-
+        //Liga a hitbox
         hitbox.SetActive(true);
+        //Liga a animação de ataque
         animator.SetBool("Attack", true);
+        //Segura todo o processo por 0.5 segundos
         yield return new WaitForSeconds(0.5f);
+        //Desliga a hitbox
         hitbox.SetActive(false);
+        //Desliga a animação de ataque
         animator.SetBool("Attack", false);
-
+        //Liga a animação de Retorno
         animator.SetBool("Returning", true);
+        //Lógica de gatling
         float timer = 1f;
         while (timer > 0)
         {
@@ -443,9 +450,12 @@ public class Player : MonoBehaviour
             }
             timer -= Time.deltaTime;
         }
+        //Se não rolar de ir pra lugar nenhum
+        //Cancela a animação de Retorno
         animator.SetBool("Returning", false);
-        Debug.Log("Fim attackM");
+        //Fim do ataque M
         isAttacking = false;
+        Debug.Log("Fim attackM");
     }
 
     private IEnumerator AttackMDCoroutine()
