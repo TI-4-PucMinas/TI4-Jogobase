@@ -7,24 +7,33 @@ public class Protag : Player
 {
 
     protected PlayerControls controls;
-
+    //limites da tela
+    private float minX, maxX, minY, maxY;
     void Start()
     {
         controls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
+
+        // Calcular os limites da câmera em coordenadas do mundo
+        Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+        // Definir os limites com base nas bordas da câmera
+        minX = bottomLeft.x;
+        maxX = topRight.x;
     }
 
     void Update()
     {
         if (!onGround)
         {
-            Debug.Log("no ar");
+            //Debug.Log("no ar");
             animator.SetBool("Pulando", true);
         }
 
         if (onGround)
         {
-            Debug.Log("no chao");
+            //Debug.Log("no chao");
             animator.SetBool("Pulando", false);
         }
 
@@ -66,5 +75,14 @@ public class Protag : Player
                 rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
             }
         }
+        RestrictMovement();
+    }
+    void RestrictMovement()
+    {
+        // Restringir a posição do personagem dentro dos limites
+        Vector3 position = transform.position;
+        position.x = Mathf.Clamp(position.x, minX, maxX);
+
+        transform.position = position;
     }
 }
