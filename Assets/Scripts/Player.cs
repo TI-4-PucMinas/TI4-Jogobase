@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
     {
         if (context.performed && onGround && !isAttacking)
         {
-            
+            Debug.Log("Tentando pular");
             moveInput = context.ReadValue<Vector2>();
 
             // Verifica se apenas 'W' está pressionado
