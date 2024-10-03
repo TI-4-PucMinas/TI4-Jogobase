@@ -74,7 +74,7 @@ public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
 
     public void OnHitFrameEnd()
     {
-        hitbox.gameObject.SetActive(false);
+        hitbox.StopCheckingCollision();
     }
 
     public void OnLastFrameStart()

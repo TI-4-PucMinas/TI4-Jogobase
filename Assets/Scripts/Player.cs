@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
 {
 
     protected Rigidbody2D rb;
+    private int startup;
+    private int duration;
+    private int cooldown;
     protected bool onGround = false;
     protected bool onAirD = false;
     protected bool onAirA = false;
@@ -221,22 +224,32 @@ public class Player : MonoBehaviour
     {
         Debug.Log("AttackW");
         isAttacking = true;
+        animator.SetBool("Attack", true);
+        while (!animator.GetNextAnimatorStateInfo(0).IsName("Attack1")) 
+        {
+            yield return null; 
+        }
         clipEX.clip = animator.GetCurrentAnimatorClipInfo(0)[0].clip;
         clipEX.animatorStateName = clipEX.clip.name;
         clipEX.Initialize();
-        animator.SetBool("Attack",true);
-        anim = clipEX.TotalFrames();
-
-        atacante.Ataque(50, new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),20,5,6,new Vector2(0.7f,0.5f),clipEX);
-
-        for(int i = 0; i < anim; i++)
+        duration = 13;
+        startup = 5;
+        cooldown = 13;
+        atacante.Ataque(50, new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),duration,startup,cooldown,new Vector2(0.7f,0.5f),clipEX);
+        int c = 0;
+        for(int i = 0;!clipEX.BiggerOrEqualThanFrame(duration + startup); i++)
         {
             atacante.hitbox.HitboxUpdate();
             atacante.frameChecker.CheckFrames();
+            if (atacante.hitbox.isActiveAndEnabled)
+            {
+                Debug.Log(c++);
+            }
             yield return null;
         }
+        animator.SetBool("Attack", false);
 
-        
+
 
         // Bloqueia todas as ações por um tempo determinado
         //yield return new WaitForSeconds(3);

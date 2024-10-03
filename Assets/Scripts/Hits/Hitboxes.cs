@@ -100,8 +100,9 @@ public class Hitboxes : MonoBehaviour
 
     public void StopCheckingCollision()
     {
+        
         _state = ColliderState.Closed;
-
+        gameObject.SetActive(false);
     }
 
     public void SetResponder(IHitboxResponder responder)
@@ -113,6 +114,7 @@ public class Hitboxes : MonoBehaviour
     public void SetHitbox(Vector2 hitboxSize)
     {
         this.hitboxSize = hitboxSize;
+        _state = ColliderState.Open;
         gameObject.SetActive(true);
     }
 
