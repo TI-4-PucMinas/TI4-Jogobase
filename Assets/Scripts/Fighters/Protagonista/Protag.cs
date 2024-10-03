@@ -7,13 +7,17 @@ public class Protag : Player
 {
 
     protected PlayerControls controls;
+
     //limites da tela
     private float minX, maxX, minY, maxY;
     void Start()
     {
+        atacante = GetComponentInChildren<Attack>();
         controls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
-
+        clipEX = new AnimationClipEX();
+        animator = GetComponent<Animator>();
+        clipEX.animator = animator;
         // Calcular os limites da câmera em coordenadas do mundo
         Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
         Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));

@@ -116,6 +116,10 @@ public class Hitboxes : MonoBehaviour
         this.hitboxSize = hitboxSize;
         _state = ColliderState.Open;
         gameObject.SetActive(true);
+        if (!useSphere)
+            colliders = Physics2D.OverlapBoxAll(position, hitboxSize, mask);
+        else
+            colliders = Physics2D.OverlapCircleAll(position, radius, mask);
     }
 
     private void OnDrawGizmos()
