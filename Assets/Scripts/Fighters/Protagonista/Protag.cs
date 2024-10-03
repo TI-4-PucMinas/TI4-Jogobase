@@ -13,7 +13,8 @@ public class Protag : Player
     {
         controls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
-
+        // Limitar o tamanho da câmera
+        Camera.main.orthographicSize = 5.265842f;
         // Calcular os limites da câmera em coordenadas do mundo
         Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
         Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
@@ -21,6 +22,9 @@ public class Protag : Player
         // Definir os limites com base nas bordas da câmera
         minX = bottomLeft.x;
         maxX = topRight.x;
+        // Ajustar o scale da câmera ao mínimo possível, mantendo a proporção da tela
+        AdjustCameraScale();
+        UpdateCameraLimits();
     }
 
     void Update()
@@ -75,6 +79,8 @@ public class Protag : Player
                 rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
             }
         }
+        //ATUALIZAR OS LIMITES DA CÂMERA
+        UpdateCameraLimits();
         RestrictMovement();
     }
     void RestrictMovement()
@@ -84,5 +90,24 @@ public class Protag : Player
         position.x = Mathf.Clamp(position.x, minX, maxX);
 
         transform.position = position;
+    }
+    void UpdateCameraLimits()
+    {
+        // Calcular os limites da câmera em coordenadas do mundo
+        Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
+        Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.nearClipPlane));
+
+        // Definir os limites com base nas bordas da câmera
+        minX = bottomLeft.x;
+        maxX = topRight.x;
+    }
+    // Ajusta a escala da câmera mantendo a proporção da tela
+    void AdjustCameraScale()
+    {
+        // Obtenha a proporção da tela (aspect ratio)
+        float aspectRatio = (float)Screen.width / (float)Screen.height;
+
+        Camera.main.aspect = aspectRatio;
+
     }
 }
