@@ -1556,6 +1556,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1571033821}
     - target: {fileID: 4118273846037306590, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+      propertyPath: m_Size.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4118273846037306590, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+      propertyPath: m_Size.y
+      value: 2.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4118273846037306590, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_Offset.y
       value: 0
       objectReference: {fileID: 0}
@@ -1645,9 +1653,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4517780371199911112, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7814774337598245890}
-    - targetCorrespondingSourceObject: {fileID: 4517780371199911112, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7814774337598245899}
     - targetCorrespondingSourceObject: {fileID: 4517780371199911112, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7814774337598245898}
@@ -1821,18 +1826,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BarraDvida: {fileID: 2136870320}
   VidaAtual: 100
---- !u!114 &7814774337598245899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7814774337598245889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa2a8b5dc2f51b14f800f4e71b7a9cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

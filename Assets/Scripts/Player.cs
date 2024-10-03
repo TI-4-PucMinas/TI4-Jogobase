@@ -412,7 +412,7 @@ public class Player : MonoBehaviour
         animator.SetBool("Attack", false);
 
         animator.SetBool("Returning", true);
-        float timer = 2f;
+        float timer = 1f;
         while (timer > 0)
         {
             yield return null;
@@ -450,23 +450,18 @@ public class Player : MonoBehaviour
 
     private IEnumerator AttackMDCoroutine()
     {
-        Debug.Log("AttackMD");
+        Debug.Log("attackMD");
         isAttacking = true;
 
         hitbox.SetActive(true);
-
         animator.SetBool("Attack", true);
-        animator.SetBool("Run", false);
-
-        // Bloqueia todas as ações por um tempo determinado (1 segundo)
-        yield return new WaitForSeconds(3);
-
-        // Desabilita a hitbox após 1 segundo
+        yield return new WaitForSeconds(0.5f);
         hitbox.SetActive(false);
-
         animator.SetBool("Attack", false);
 
-        float timer = 3f;
+        animator.SetBool("Returning", true);
+
+        float timer = 1f;
 
         while (timer > 0)
         {
@@ -498,20 +493,26 @@ public class Player : MonoBehaviour
             }
             timer -= Time.deltaTime;
         }
-
+        animator.SetBool("Returning", false);
         Debug.Log("Fim attackMD");
         isAttacking = false;
     }
 
     private IEnumerator AttackMACoroutine()
     {
-        Debug.Log("AttackMA");
+        Debug.Log("attackMA");
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
+        hitbox.SetActive(true);
+        Debug.Log("Inicio"+Time.deltaTime);
+        animator.SetBool("Attack", true);
+        yield return new WaitForSeconds(0.5f);
+        hitbox.SetActive(false);
+        animator.SetBool("Attack", false);
+        Debug.Log("Fim"+Time.deltaTime);
 
-        float timer = 3f;
+        animator.SetBool("Returning", true);
+        float timer = 1f;
 
         while (timer > 0)
         {
@@ -543,7 +544,7 @@ public class Player : MonoBehaviour
             }
             timer -= Time.deltaTime;
         }
-
+        animator.SetBool("Returning", false);
         Debug.Log("Fim attackMA");
         isAttacking = false;
     }
