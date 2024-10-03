@@ -22,10 +22,10 @@ public class Player : MonoBehaviour
     protected bool isAttacking = false;
     public Animator animator;
     protected Attack atacante;
+    protected GerenciadorDvida vida;
 
     //Clipe de animação
     public AnimationClipEX clipEX;
-
 
     public float jumpForce = 30f;
     public float moveSpeed = 5f;
@@ -41,8 +41,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
-        
 
     }
 
@@ -71,10 +69,6 @@ public class Player : MonoBehaviour
 
         horizontal = context.ReadValue<Vector2>().x;
         //Debug.Log(horizontal);
-
-      
-
-
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -129,11 +123,13 @@ public class Player : MonoBehaviour
                 // Verifica se o binding W+D foi acionado
                 else if (Keyboard.current.fKey.isPressed && Keyboard.current.dKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackWDCoroutine());
                 }
                 // Verifica se o binding W+A foi acionado
                 else if (Keyboard.current.fKey.isPressed && Keyboard.current.aKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackWACoroutine());
                 }
             }
@@ -157,11 +153,13 @@ public class Player : MonoBehaviour
                 // Verifica se o binding M+D foi acionado
                 else if (Keyboard.current.gKey.isPressed && Keyboard.current.dKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackMDCoroutine());
                 }
                 // Verifica se o binding M+A foi acionado
                 else if (Keyboard.current.gKey.isPressed && Keyboard.current.aKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackMACoroutine());
                 }
             }
@@ -180,16 +178,19 @@ public class Player : MonoBehaviour
                 // Verifica se o binding de apenas S foi acionado
                 if (control == Keyboard.current.hKey && !Keyboard.current.dKey.isPressed && !Keyboard.current.aKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackSCoroutine());
                 }
                 // Verifica se o binding s+D foi acionado
                 else if (Keyboard.current.hKey.isPressed && Keyboard.current.dKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackSDCoroutine());
                 }
                 // Verifica se o binding S+A foi acionado
                 else if (Keyboard.current.hKey.isPressed && Keyboard.current.aKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackSACoroutine());
                 }
             }
@@ -207,16 +208,19 @@ public class Player : MonoBehaviour
                 // Verifica se o binding de apenas SS foi acionado
                 if (control == Keyboard.current.jKey && !Keyboard.current.dKey.isPressed && !Keyboard.current.aKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackSSCoroutine());
                 }
                 // Verifica se o binding SS+D foi acionado
                 else if (Keyboard.current.jKey.isPressed && Keyboard.current.dKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackSSDCoroutine());
                 }
                 // Verifica se o binding SS+A foi acionado
                 else if (Keyboard.current.jKey.isPressed && Keyboard.current.aKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackSSACoroutine());
                 }
             }
@@ -230,8 +234,8 @@ public class Player : MonoBehaviour
         duration = 10;
         cooldown = 15;
 
-        //Inicio ataque M
-        Debug.Log("attackM");
+        //Inicio ataque W
+        Debug.Log("attackW");
 
         //Set isAttacking como true
         isAttacking = true;
@@ -278,11 +282,11 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackWACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.F))
-            {
-                StartCoroutine(AttackWCoroutine());
-                yield break;
-            }
+            //if (UnityEngine.Input.GetKey(KeyCode.F))
+            //{
+            //    StartCoroutine(AttackWCoroutine());
+            //    yield break;
+            //}
             if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackMACoroutine());
@@ -301,30 +305,59 @@ public class Player : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(CloseAnimation("Attack"));
+       // StartCoroutine(CloseAnimation("Attack"));
         Debug.Log("Fim attackW");
         isAttacking = false;
     }
 
     private IEnumerator AttackWDCoroutine()
     {
-        Debug.Log("AttackWD");
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
+
+        //Inicio ataque W
+        Debug.Log("attackW");
+
+        //Set isAttacking como true
         isAttacking = true;
-        animator.SetBool("Attack", true);
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
-
-        float timer = 3f;
-
-        while (timer > 0)
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
         {
             yield return null;
-            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.D))
-            {
-                StartCoroutine(AttackWDCoroutine());
-                yield break;
-            }
+        }
+
+        //Ataque é criado
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown
+        );
+
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for (int i = 0; i < duration + cooldown; i++)
+        {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        for (int i = 0; i < cooldown; i++)
+        {
+            //if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.D))
+            //{
+            //    StartCoroutine(AttackWDCoroutine());
+            //    yield break;
+            //}
             if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackWACoroutine());
@@ -350,36 +383,65 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackMCoroutine());
                 yield break;
             }
-            timer -= Time.deltaTime;
+            yield return null;
         }
-
         Debug.Log("Fim attackWD");
         isAttacking = false;
     }
 
     private IEnumerator AttackWACoroutine()
     {
-        Debug.Log("AttackWA");
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
+
+        //Inicio ataque W
+        Debug.Log("attackW");
+
+        //Set isAttacking como true
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
-
-        float timer = 3f;
-
-        while (timer > 0)
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
         {
             yield return null;
+        }
+
+        //Ataque é criado
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown
+        );
+
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for (int i = 0; i < duration + cooldown; i++)
+        {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        for (int i = 0; i < cooldown; i++)
+        {
             if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackWDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.A))
-            {
-                StartCoroutine(AttackWACoroutine());
-                yield break;
-            }
+            //if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.A))
+            //{
+            //    StartCoroutine(AttackWACoroutine());
+            //    yield break;
+            //}
             if (UnityEngine.Input.GetKey(KeyCode.F))
             {
                 StartCoroutine(AttackWCoroutine());
@@ -400,9 +462,8 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackMCoroutine());
                 yield break;
             }
-            timer -= Time.deltaTime;
+            yield return null;
         }
-
         Debug.Log("Fim attackWA");
         isAttacking = false;
     }
@@ -438,7 +499,7 @@ public class Player : MonoBehaviour
 
         //Hitbox é ativada
         atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
-        for(int i = 0; i < duration + cooldown; i++)
+        for (int i = 0; i < duration + cooldown; i++)
         {
             //Enquanto o ataque estiver ativo, a hitbox é atualizada
             atacante.hitbox.HitboxUpdate();
@@ -478,8 +539,6 @@ public class Player : MonoBehaviour
             }
             yield return null;
         }
-
-        StartCoroutine(CloseAnimation("Attack"));
         //Fim do ataque M
         isAttacking = false;
         Debug.Log("Fim attackM");
@@ -487,22 +546,47 @@ public class Player : MonoBehaviour
 
     private IEnumerator AttackMDCoroutine()
     {
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
+
+        //Inicio ataque M
         Debug.Log("attackMD");
+
+        //Set isAttacking como true
         isAttacking = true;
 
-        
-        animator.SetBool("Attack", true);
-        yield return new WaitForSeconds(0.5f);
-        
-        animator.SetBool("Attack", false);
-
-        animator.SetBool("Returning", true);
-
-        float timer = 1f;
-
-        while (timer > 0)
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
         {
             yield return null;
+        }
+
+        //Ataque é criado
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown
+        );
+
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for (int i = 0; i < duration + cooldown; i++)
+        {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        for (int i = 0; i < cooldown; i++)
+        {
             if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackMACoroutine());
@@ -528,32 +612,57 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackSCoroutine());
                 yield break;
             }
-            timer -= Time.deltaTime;
+            yield return null;
         }
-        animator.SetBool("Returning", false);
-        Debug.Log("Fim attackMD");
+
+        //Fim do ataque M
         isAttacking = false;
+        Debug.Log("Fim attackMD");
     }
 
     private IEnumerator AttackMACoroutine()
     {
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
+
+        //Inicio ataque M
         Debug.Log("attackMA");
+
+        //Set isAttacking como true
         isAttacking = true;
 
-        
-        Debug.Log("Inicio"+Time.deltaTime);
-        animator.SetBool("Attack", true);
-        yield return new WaitForSeconds(0.5f);
-        
-        animator.SetBool("Attack", false);
-        Debug.Log("Fim"+Time.deltaTime);
-
-        animator.SetBool("Returning", true);
-        float timer = 1f;
-
-        while (timer > 0)
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
         {
             yield return null;
+        }
+
+        //Ataque é criado
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown
+        );
+
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for (int i = 0; i < duration + cooldown; i++)
+        {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        for (int i = 0; i < cooldown; i++)
+        {
             if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackMDCoroutine());
@@ -579,26 +688,57 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackSCoroutine());
                 yield break;
             }
-            timer -= Time.deltaTime;
+            yield return null;
         }
-        animator.SetBool("Returning", false);
-        Debug.Log("Fim attackMA");
+
+        //Fim do ataque M
         isAttacking = false;
+        Debug.Log("Fim attackMA");
     }
 
     private IEnumerator AttackSCoroutine()
     {
-        Debug.Log("AttackS");
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
+
+        //Inicio ataque M
+        Debug.Log("attackS");
+
+        //Set isAttacking como true
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
-
-        float timer = 3f;
-
-        while (timer > 0)
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
         {
             yield return null;
+        }
+
+        //Ataque é criado
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown
+        );
+
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for (int i = 0; i < duration + cooldown; i++)
+        {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        for (int i = 0; i < cooldown; i++)
+        {
             if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackSDCoroutine());
@@ -624,26 +764,58 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackSSCoroutine());
                 yield break;
             }
-            timer -= Time.deltaTime;
+            yield return null;
         }
 
-        Debug.Log("Fim attackS");
+
+        //Fim do ataque M
         isAttacking = false;
+        Debug.Log("Fim attackS");
     }
 
     private IEnumerator AttackSDCoroutine()
     {
-        Debug.Log("AttackSD");
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
+
+        //Inicio ataque M
+        Debug.Log("attackSD");
+
+        //Set isAttacking como true
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
-
-        float timer = 3f;
-
-        while (timer > 0)
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
         {
             yield return null;
+        }
+
+        //Ataque é criado
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown
+        );
+
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for (int i = 0; i < duration + cooldown; i++)
+        {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        for (int i = 0; i < cooldown; i++)
+        {
             if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackSACoroutine());
@@ -669,26 +841,57 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackSSCoroutine());
                 yield break;
             }
-            timer -= Time.deltaTime;
+            yield return null;
         }
 
-        Debug.Log("Fim attackSD");
+        //Fim do ataque M
         isAttacking = false;
+        Debug.Log("Fim attackSD");
     }
 
     private IEnumerator AttackSACoroutine()
     {
-        Debug.Log("AttackSA");
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
+
+        //Inicio ataque M
+        Debug.Log("attackSA");
+
+        //Set isAttacking como true
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
-
-        float timer = 3f;
-
-        while (timer > 0)
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
         {
             yield return null;
+        }
+
+        //Ataque é criado
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown
+        );
+
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for (int i = 0; i < duration + cooldown; i++)
+        {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        for (int i = 0; i < cooldown; i++)
+        {
             if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackSDCoroutine());
@@ -714,49 +917,165 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackSSCoroutine());
                 yield break;
             }
-            timer -= Time.deltaTime;
+            yield return null;
         }
 
-        Debug.Log("Fim attackSA");
+        //Fim do ataque M
         isAttacking = false;
+        Debug.Log("Fim attackSA");
     }
 
     private IEnumerator AttackSSCoroutine()
     {
-        Debug.Log("AttackSS");
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
+
+        //Inicio ataque M
+        Debug.Log("attackSS");
+
+        //Set isAttacking como true
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
+        {
+            yield return null;
+        }
 
-        Debug.Log("Fim attackSS");
+        //Ataque é criado
+        atacante.Ataque
+        (
+            70,
+            new Vector2(transform.position.x + 1f, transform.position.y),
+            duration,
+            startup,
+            cooldown
+        );
+
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.8f, 0.7f));
+        for (int i = 0; i < duration + cooldown; i++)
+        {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        for (int i = 0; i < cooldown; i++)
+        {
+            yield return null;
+        }
+
+        //Fim do ataque M
         isAttacking = false;
+        Debug.Log("Fim attackSS");
     }
 
     private IEnumerator AttackSSDCoroutine()
     {
-        Debug.Log("AttackSSD");
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
+
+        //Inicio ataque M
+        Debug.Log("attackSSD");
+
+        //Set isAttacking como true
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
+        {
+            yield return null;
+        }
 
+        //Ataque é criado
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown
+        );
 
-        Debug.Log("Fim attackSSD");
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for (int i = 0; i < duration + cooldown; i++)
+        {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        for (int i = 0; i < cooldown; i++)
+        {
+            yield return null;
+        }
+
+        //Fim do ataque M
         isAttacking = false;
+        Debug.Log("Fim attackSSD");
     }
 
     private IEnumerator AttackSSACoroutine()
     {
-        Debug.Log("AttackSSA");
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
+
+        //Inicio ataque M
+        Debug.Log("attackSSA");
+
+        //Set isAttacking como true
         isAttacking = true;
 
-        // Bloqueia todas as ações por um tempo determinado
-        yield return new WaitForSeconds(3);
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
+        {
+            yield return null;
+        }
 
+        //Ataque é criado
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown
+        );
 
-        Debug.Log("Fim attackSSA");
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for (int i = 0; i < duration + cooldown; i++)
+        {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
+            yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        for (int i = 0; i < cooldown; i++)
+        {
+            yield return null;
+        }
+
+        //Fim do ataque M
         isAttacking = false;
+        Debug.Log("Fim attackSSA");
     }
 
     AnimationClip CaptureAnimationInfo()
@@ -778,6 +1097,11 @@ public class Player : MonoBehaviour
 
     private IEnumerator TacaAnimation(string anim)
     {
+        if(animator.GetBool(anim))
+        {
+            animator.SetBool(anim, false);
+            yield return null;
+        }
         animator.SetBool(anim, true);
         yield break;
     }
@@ -786,5 +1110,15 @@ public class Player : MonoBehaviour
     {
         animator.SetBool(anim, false);
         yield break;
+    }
+
+    public void EndAnimation(string anim)
+    {
+        animator.SetBool(anim, false);
+    }
+
+    public void TomarDano(float dano)
+    {
+        vida.machuca(dano);
     }
 }

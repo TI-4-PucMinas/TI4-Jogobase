@@ -8,6 +8,7 @@ public class Protag : Player
 
     protected PlayerControls controls;
 
+
     //limites da tela
     private float minX, maxX, minY, maxY;
     void Start()
@@ -18,6 +19,7 @@ public class Protag : Player
         clipEX = new AnimationClipEX();
         animator = GetComponent<Animator>();
         clipEX.animator = animator;
+        vida = GetComponentInChildren<GerenciadorDvida>();
         // Calcular os limites da câmera em coordenadas do mundo
         Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
         Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
@@ -81,6 +83,7 @@ public class Protag : Player
         }
         RestrictMovement();
     }
+
     void RestrictMovement()
     {
         // Restringir a posição do personagem dentro dos limites

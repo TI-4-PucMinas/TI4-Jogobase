@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Enemy : Player
 {
-    private GerenciadorDvida gerenciadorDvidaEnemy;
     private float minX, maxX, minY, maxY;
 
     void Start()
     {
 
-        gerenciadorDvidaEnemy = GetComponent<GerenciadorDvida>();
+        vida = GetComponent<GerenciadorDvida>();
 
         // Calcular os limites da câmera em coordenadas do mundo
         Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
@@ -28,29 +27,10 @@ public class Enemy : Player
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-        if (collision.CompareTag("HitboxPlayer")) 
-        {
-            ReceberDano(10);
-        }
-
-    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
  
-    }
-
-    public void ReceberDano(float dano)
-    {
-        if (gerenciadorDvidaEnemy != null)
-        {
-            gerenciadorDvidaEnemy.machuca(dano);
-            
-
-        }
     }
 
     void RestrictMovement()

@@ -21,7 +21,7 @@ public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
     
 
     //Dano do ataque
-    public int damage;
+    public float damage;
     //Duração do ataque
     public int duration;
     //Tempo de recarga do ataque
@@ -44,7 +44,7 @@ public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
     }
 
     //Método para uso do ataque
-    public void Ataque(int damage, Vector2 position,int duration, int cooldown, int startUp, AnimationClipEX clipEX)
+    public void Ataque(float damage, Vector2 position,int duration, int cooldown, int startUp, AnimationClipEX clipEX)
     {
         this.duration = duration;
         this.cooldown = cooldown;
@@ -59,7 +59,7 @@ public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
         frameChecker.Initialize(this, clipEX);
     }
 
-    public void Ataque(int damage, Vector2 position, int duration, int cooldown, int startUp)
+    public void Ataque(float damage, Vector2 position, int duration, int cooldown, int startUp)
     {
         this.duration = duration;
         this.cooldown = cooldown;
