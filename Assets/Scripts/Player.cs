@@ -22,8 +22,6 @@ public class Player : MonoBehaviour
     protected bool isAttacking = false;
     public Animator animator;
     protected Attack atacante;
-    private PegaAnimation pegaAnimation;
-    private int anim = 0;
 
     //Clipe de animação
     public AnimationClipEX clipEX;
@@ -38,7 +36,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        pegaAnimation = ScriptableObject.CreateInstance<PegaAnimation>();
+        
     }
 
     void Update()
@@ -125,6 +123,7 @@ public class Player : MonoBehaviour
                 // Verifica se o binding de apenas W foi acionado
                 if (control == Keyboard.current.fKey && !Keyboard.current.dKey.isPressed && !Keyboard.current.aKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackWCoroutine());
                 }
                 // Verifica se o binding W+D foi acionado
@@ -152,6 +151,7 @@ public class Player : MonoBehaviour
                 // Verifica se o binding de apenas M foi acionado
                 if (control == Keyboard.current.gKey && !Keyboard.current.dKey.isPressed && !Keyboard.current.aKey.isPressed)
                 {
+                    StartCoroutine(TacaAnimation("Attack"));
                     StartCoroutine(AttackMCoroutine());
                 }
                 // Verifica se o binding M+D foi acionado
@@ -225,40 +225,49 @@ public class Player : MonoBehaviour
 
     private IEnumerator AttackWCoroutine()
     {
-        Debug.Log("AttackW");
-        isAttacking = true;
-        StartCoroutine(TacaAnimation("Attack"));
-        clipEX.clip = pegaAnimation.GetClip();
-        clipEX.animatorStateName = clipEX.clip.name;
-        clipEX.Initialize();
+        //Dados desse ataque
+        startup = 6;
+        duration = 10;
+        cooldown = 15;
 
-        duration = 13;
-        startup = 5;
-        cooldown = 13;
-        atacante.Ataque(50, new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),duration,startup,cooldown,new Vector2(0.7f,0.5f));
-        int c = 0;
-        for(int i = 0;!clipEX.BiggerOrEqualThanFrame(duration + startup); i++)
+        //Inicio ataque M
+        Debug.Log("attackM");
+
+        //Set isAttacking como true
+        isAttacking = true;
+
+        //Quadros iniciais do ataque são aguardados
+        for (int i = 0; i < startup; i++)
         {
-            atacante.hitbox.HitboxUpdate();
-            atacante.frameChecker.CheckFrames();
-            if (atacante.hitbox.isActiveAndEnabled)
-            {
-                Debug.Log(c++);
-            }
             yield return null;
         }
-        StartCoroutine(CloseAnimation("Attack"));
 
+        //Ataque é criado
+        atacante.Ataque
+        (
+            50,
+            new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
+            duration,
+            startup,
+            cooldown
+        );
 
-
-        // Bloqueia todas as ações por um tempo determinado
-        //yield return new WaitForSeconds(3);
-
-        float timer = 3f;
-
-        while (timer > 0)
+        //Hitbox é ativada
+        atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
+        for (int i = 0; i < duration + cooldown; i++)
         {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
+            atacante.hitbox.HitboxUpdate();
             yield return null;
+        }
+
+        //Desativa a hitbox
+        atacante.hitbox.StopCheckingCollision();
+
+        //Resto dos quadros
+        for (int i = 0; i < cooldown; i++)
+        {
+            //Sistema de Gatling
             if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackWDCoroutine());
@@ -289,9 +298,10 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackMCoroutine());
                 yield break;
             }
-            timer -= Time.deltaTime;
+            yield return null;
         }
 
+        StartCoroutine(CloseAnimation("Attack"));
         Debug.Log("Fim attackW");
         isAttacking = false;
     }
@@ -399,43 +409,48 @@ public class Player : MonoBehaviour
 
     private IEnumerator AttackMCoroutine()
     {
+        //Dados desse ataque
         startup = 6;
         duration = 10;
         cooldown = 15;
+
         //Inicio ataque M
         Debug.Log("attackM");
+
         //Set isAttacking como true
         isAttacking = true;
 
-        //Liga a animação de ataque
-        StartCoroutine(TacaAnimation("Attack"));
+        //Quadros iniciais do ataque são aguardados
         for (int i = 0; i < startup; i++)
         {
             yield return null;
         }
+
+        //Ataque é criado
         atacante.Ataque
         (
             50,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
-            cooldown,
-            new Vector2(0.7f, 0.5f)
+            cooldown
         );
+
+        //Hitbox é ativada
         atacante.hitbox.SetHitbox(new Vector2(0.7f, 0.5f));
         for(int i = 0; i < duration + cooldown; i++)
         {
+            //Enquanto o ataque estiver ativo, a hitbox é atualizada
             atacante.hitbox.HitboxUpdate();
             yield return null;
         }
+
+        //Desativa a hitbox
         atacante.hitbox.StopCheckingCollision();
-        //Desliga a animação de ataque
-        StartCoroutine(CloseAnimation("Attack"));
-        //Liga a animação de Retorno
-        StartCoroutine(TacaAnimation("Returning"));
-        for (int i = 0; i < 30; i++)
+        //Resto dos quadros
+        for (int i = 0; i < cooldown; i++)
         {
-            yield return null;
+            //Sistema de Gatling
             if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackMDCoroutine());
@@ -463,9 +478,8 @@ public class Player : MonoBehaviour
             }
             yield return null;
         }
-        //Se não rolar de ir pra lugar nenhum
-        //Cancela a animação de Retorno
-        StartCoroutine(CloseAnimation("Returning"));
+
+        StartCoroutine(CloseAnimation("Attack"));
         //Fim do ataque M
         isAttacking = false;
         Debug.Log("Fim attackM");

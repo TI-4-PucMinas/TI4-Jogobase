@@ -44,7 +44,7 @@ public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
     }
 
     //Método para uso do ataque
-    public void Ataque(int damage, Vector2 position,int duration, int cooldown, int startUp, Vector2 hitboxSize)
+    public void Ataque(int damage, Vector2 position,int duration, int cooldown, int startUp, AnimationClipEX clipEX)
     {
         this.duration = duration;
         this.cooldown = cooldown;
@@ -56,7 +56,21 @@ public class Attack : MonoBehaviour,IHitboxResponder, IFrameCheckHandler
         frameChecker.hitFrameStart = startUp;
         frameChecker.hitFrameEnd = startUp + duration;
         hitbox.SetResponder(this);
-        //frameChecker.Initialize(this, clipEX);
+        frameChecker.Initialize(this, clipEX);
+    }
+
+    public void Ataque(int damage, Vector2 position, int duration, int cooldown, int startUp)
+    {
+        this.duration = duration;
+        this.cooldown = cooldown;
+        this.startUp = startUp;
+        this.damage = damage;
+        this.position = position;
+        transform.position = position;
+        // this.hitboxSize = hitboxSize;
+        frameChecker.hitFrameStart = startUp;
+        frameChecker.hitFrameEnd = startUp + duration;
+        hitbox.SetResponder(this);
     }
 
     //Interface de resposta de hitbox
