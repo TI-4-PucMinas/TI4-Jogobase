@@ -1515,7 +1515,7 @@ PrefabInstance:
       objectReference: {fileID: 7814774337598245894}
     - target: {fileID: 7366587248657818352, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: jumpForce
-      value: 30
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 8999825683209269892, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_Mass
@@ -1535,7 +1535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8999825683209269892, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_GravityScale
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8999825683209269892, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_SleepingMode

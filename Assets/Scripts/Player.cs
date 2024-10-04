@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     //Clipe de animação
     public AnimationClipEX clipEX;
 
-    public float jumpForce = 30f;
+    public float jumpForce = 70f;
     public float moveSpeed = 5f;
     public float attackDuration = 3f;
     public float horizontal = 0f;
