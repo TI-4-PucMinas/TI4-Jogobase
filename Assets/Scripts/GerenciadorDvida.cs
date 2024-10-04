@@ -16,20 +16,7 @@ public class GerenciadorDvida : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (VidaAtual <= 0) Application.LoadLevel(Application.loadedLevel);
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
-
-            machuca(10);
-        
-        }
-
-        if (Input.GetKeyDown(KeyCode.Home))
-        {
-
-            cura(5);
-
-        }
     }
 
     public void cura(float vida)
