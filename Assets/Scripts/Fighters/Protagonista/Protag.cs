@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Protag : Player
 {
@@ -11,6 +8,7 @@ public class Protag : Player
 
     //limites da tela
     private float minX, maxX, minY, maxY;
+
     void Start()
     {
         atacante = GetComponentInChildren<Attack>();
@@ -20,6 +18,7 @@ public class Protag : Player
         animator = GetComponent<Animator>();
         clipEX.animator = animator;
         vida = GetComponentInChildren<GerenciadorDvida>();
+
         // Calcular os limites da câmera em coordenadas do mundo
         Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
         Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));

@@ -8,6 +8,7 @@ TagManager:
   - InputHandlersManager
   - EnemyTag
   - HitboxPlayer
+  - Attack
   layers:
   - Default
   - TransparentFX

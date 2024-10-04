@@ -1,10 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
 using UnityEngine.InputSystem;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 
 
@@ -249,7 +245,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            3,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -332,7 +328,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            3,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -411,7 +407,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            3,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -490,7 +486,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            7,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -566,7 +562,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            7,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -642,7 +638,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            7,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -718,7 +714,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            13,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -795,7 +791,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            12,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -871,7 +867,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            12,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -947,7 +943,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            70,
+            16,
             new Vector2(transform.position.x + 1f, transform.position.y),
             duration,
             startup,
@@ -998,7 +994,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            16,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -1049,7 +1045,7 @@ public class Player : MonoBehaviour
         //Ataque é criado
         atacante.Ataque
         (
-            50,
+            17,
             new Vector2(transform.position.x + 1f, transform.position.y + 0.1f),
             duration,
             startup,
@@ -1078,23 +1074,6 @@ public class Player : MonoBehaviour
         Debug.Log("Fim attackSSA");
     }
 
-    AnimationClip CaptureAnimationInfo()
-    {
-        // Pega o estado atual do Animator
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-        // Verifica se está na animação correta ou qualquer animação em execução
-        if (stateInfo.normalizedTime < 1.0f)
-        {
-            // Pega o clipe que está rodando
-            AnimationClip clip = animator.GetCurrentAnimatorClipInfo(0)[0].clip;
-
-            return clip;
-        }
-
-        return null;
-    }
-
     private IEnumerator TacaAnimation(string anim)
     {
         if(animator.GetBool(anim))
@@ -1103,12 +1082,6 @@ public class Player : MonoBehaviour
             yield return null;
         }
         animator.SetBool(anim, true);
-        yield break;
-    }
-
-    private IEnumerator CloseAnimation(string anim)
-    {
-        animator.SetBool(anim, false);
         yield break;
     }
 
@@ -1121,4 +1094,14 @@ public class Player : MonoBehaviour
     {
         vida.machuca(dano);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Attack"))
+        {
+            Debug.Log("Tomou dano");
+            TomarDano(collision.GetComponentInParent<Attack>().damage);
+        }
+    }
+
 }
