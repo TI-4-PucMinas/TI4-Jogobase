@@ -303,7 +303,7 @@ public class Player : MonoBehaviour
 
        // StartCoroutine(CloseAnimation("Attack"));
         Debug.Log("Fim attackW");
-        isAttacking = false;
+
     }
 
     private IEnumerator AttackWDCoroutine()
@@ -382,7 +382,7 @@ public class Player : MonoBehaviour
             yield return null;
         }
         Debug.Log("Fim attackWD");
-        isAttacking = false;
+        
     }
 
     private IEnumerator AttackWACoroutine()
@@ -461,7 +461,6 @@ public class Player : MonoBehaviour
             yield return null;
         }
         Debug.Log("Fim attackWA");
-        isAttacking = false;
     }
 
     private IEnumerator AttackMCoroutine()
@@ -536,7 +535,6 @@ public class Player : MonoBehaviour
             yield return null;
         }
         //Fim do ataque M
-        isAttacking = false;
         Debug.Log("Fim attackM");
     }
 
@@ -612,7 +610,6 @@ public class Player : MonoBehaviour
         }
 
         //Fim do ataque M
-        isAttacking = false;
         Debug.Log("Fim attackMD");
     }
 
@@ -688,7 +685,6 @@ public class Player : MonoBehaviour
         }
 
         //Fim do ataque M
-        isAttacking = false;
         Debug.Log("Fim attackMA");
     }
 
@@ -765,7 +761,6 @@ public class Player : MonoBehaviour
 
 
         //Fim do ataque M
-        isAttacking = false;
         Debug.Log("Fim attackS");
     }
 
@@ -841,7 +836,6 @@ public class Player : MonoBehaviour
         }
 
         //Fim do ataque M
-        isAttacking = false;
         Debug.Log("Fim attackSD");
     }
 
@@ -917,7 +911,6 @@ public class Player : MonoBehaviour
         }
 
         //Fim do ataque M
-        isAttacking = false;
         Debug.Log("Fim attackSA");
     }
 
@@ -968,7 +961,6 @@ public class Player : MonoBehaviour
         }
 
         //Fim do ataque M
-        isAttacking = false;
         Debug.Log("Fim attackSS");
     }
 
@@ -1019,7 +1011,6 @@ public class Player : MonoBehaviour
         }
 
         //Fim do ataque M
-        isAttacking = false;
         Debug.Log("Fim attackSSD");
     }
 
@@ -1070,7 +1061,6 @@ public class Player : MonoBehaviour
         }
 
         //Fim do ataque M
-        isAttacking = false;
         Debug.Log("Fim attackSSA");
     }
 
@@ -1087,6 +1077,7 @@ public class Player : MonoBehaviour
 
     public void EndAnimation(string anim)
     {
+        isAttacking = false;
         animator.SetBool(anim, false);
     }
 
