@@ -1112,7 +1112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &1981196247
 SpriteRenderer:
@@ -1175,8 +1175,8 @@ Transform:
   m_GameObject: {fileID: 1981196244}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1859, y: -4.2097, z: 0}
-  m_LocalScale: {x: 24.639896, y: 1.8007, z: 1}
+  m_LocalPosition: {x: -0.11, y: -5.3478, z: 0}
+  m_LocalScale: {x: 24.48713, y: 4.076965, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1368,6 +1368,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1433491766718597243, guid: ba889c383b24fd348855dd5ef7c06c02, type: 3}
+      propertyPath: m_LinearDrag
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2764688588794399647, guid: ba889c383b24fd348855dd5ef7c06c02, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -1447,7 +1451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4118273846037306590, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_Size.y
-      value: 2.19
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4118273846037306590, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_Offset.y
@@ -1523,11 +1527,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8999825683209269892, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_LinearDrag
-      value: 2
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 8999825683209269892, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_AngularDrag
       value: 0.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999825683209269892, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+      propertyPath: m_GravityScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8999825683209269892, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_SleepingMode
