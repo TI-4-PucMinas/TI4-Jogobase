@@ -207,7 +207,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 375276617}
         m_TargetAssemblyTypeName: MenuPrincipalManager, Assembly-CSharp
-        m_MethodName: FecharOpcoes
+        m_MethodName: SairJogo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -755,6 +755,7 @@ MonoBehaviour:
   nomeDoLevelDeJogo: jogoPrincipal
   painelMenuInicial: {fileID: 676345349}
   painelOpcoes: {fileID: 964695081}
+  painelSairJogo: {fileID: 0}
 --- !u!1 &453084793
 GameObject:
   m_ObjectHideFlags: 0

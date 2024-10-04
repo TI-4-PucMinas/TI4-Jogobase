@@ -7,7 +7,8 @@ public class MenuPrincipalManager : MonoBehaviour
 {
     [SerializeField] private string nomeDoLevelDeJogo;
     [SerializeField] private GameObject painelMenuInicial;
-    [SerializeField] private GameObject painelOpcoes; 
+    [SerializeField] private GameObject painelOpcoes;
+    [SerializeField] private GameObject painelSairJogo;
 
     public void Jogar()
     {
