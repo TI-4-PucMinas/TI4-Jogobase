@@ -268,32 +268,32 @@ public class Player : MonoBehaviour
         for (int i = 0; i < cooldown; i++)
         {
             //Sistema de Gatling
-            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackWDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackWACoroutine());
                 yield break;
             }
-            //if (UnityEngine.Input.GetKey(KeyCode.F))
+            //if ( Input.GetKey(KeyCode.F))
             //{
             //    StartCoroutine(AttackWCoroutine());
             //    yield break;
             //}
-            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackMACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackMDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G))
+            if (Input.GetKey(KeyCode.G))
             {
                 StartCoroutine(AttackMCoroutine());
                 yield break;
@@ -349,7 +349,7 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < cooldown; i++)
         {
-            //if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.D))
+            //if ( Input.GetKey(KeyCode.F) &&  Input.GetKey(KeyCode.D))
             //{
             //    StartCoroutine(AttackWDCoroutine());
             //    yield break;
@@ -359,22 +359,22 @@ public class Player : MonoBehaviour
                 StartCoroutine(AttackWACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.F))
+            if (Input.GetKey(KeyCode.F))
             {
                 StartCoroutine(AttackWCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackMACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackMDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G))
+            if (Input.GetKey(KeyCode.G))
             {
                 StartCoroutine(AttackMCoroutine());
                 yield break;
@@ -428,32 +428,32 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < cooldown; i++)
         {
-            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackWDCoroutine());
                 yield break;
             }
-            //if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.A))
+            //if ( Input.GetKey(KeyCode.F) &&  Input.GetKey(KeyCode.A))
             //{
             //    StartCoroutine(AttackWACoroutine());
             //    yield break;
             //}
-            if (UnityEngine.Input.GetKey(KeyCode.F))
+            if (Input.GetKey(KeyCode.F))
             {
                 StartCoroutine(AttackWCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackMACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackMDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G))
+            if ( Input.GetKey(KeyCode.G))
             {
                 StartCoroutine(AttackMCoroutine());
                 yield break;
@@ -508,27 +508,27 @@ public class Player : MonoBehaviour
         for (int i = 0; i < cooldown; i++)
         {
             //Sistema de Gatling
-            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackMDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackMACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackSACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackSDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H))
+            if (Input.GetKey(KeyCode.H))
             {
                 StartCoroutine(AttackSCoroutine());
                 yield break;
@@ -583,27 +583,27 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < cooldown; i++)
         {
-            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackMACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G))
+            if (Input.GetKey(KeyCode.G))
             {
                 StartCoroutine(AttackMCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackSACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackSDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H))
+            if (Input.GetKey(KeyCode.H))
             {
                 StartCoroutine(AttackSCoroutine());
                 yield break;
@@ -659,27 +659,27 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < cooldown; i++)
         {
-            if (UnityEngine.Input.GetKey(KeyCode.G) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.G) &&  Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackMDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.G))
+            if (Input.GetKey(KeyCode.G))
             {
                 StartCoroutine(AttackMCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
+            if ( Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackSACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.H) &&  Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackSDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H))
+            if (Input.GetKey(KeyCode.H))
             {
                 StartCoroutine(AttackSCoroutine());
                 yield break;
@@ -735,27 +735,27 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < cooldown; i++)
         {
-            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.H) &&  Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackSDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
+            if ( Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackSACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.A))
+            if ( Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackSSACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.J) &&  Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackSSDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.J))
+            if (Input.GetKey(KeyCode.J))
             {
                 StartCoroutine(AttackSSCoroutine());
                 yield break;
@@ -812,27 +812,27 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < cooldown; i++)
         {
-            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.A))
+            if ( Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackSACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H))
+            if (Input.GetKey(KeyCode.H))
             {
                 StartCoroutine(AttackSCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.A))
+            if ( Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackSSACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.J) &&  Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackSSDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.J))
+            if (Input.GetKey(KeyCode.J))
             {
                 StartCoroutine(AttackSSCoroutine());
                 yield break;
@@ -888,27 +888,27 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < cooldown; i++)
         {
-            if (UnityEngine.Input.GetKey(KeyCode.H) && UnityEngine.Input.GetKey(KeyCode.D))
+            if ( Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackSDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.H))
+            if (Input.GetKey(KeyCode.H))
             {
                 StartCoroutine(AttackSCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.A))
+            if ( Input.GetKey(KeyCode.J) &&  Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackSSACoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.J) && UnityEngine.Input.GetKey(KeyCode.D))
+            if ( Input.GetKey(KeyCode.J) &&  Input.GetKey(KeyCode.D))
             {
                 StartCoroutine(AttackSSDCoroutine());
                 yield break;
             }
-            if (UnityEngine.Input.GetKey(KeyCode.J))
+            if ( Input.GetKey(KeyCode.J))
             {
                 StartCoroutine(AttackSSCoroutine());
                 yield break;

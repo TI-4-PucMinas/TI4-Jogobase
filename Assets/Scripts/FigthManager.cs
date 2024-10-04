@@ -9,10 +9,14 @@ public class SceneManeger : MonoBehaviour
     public Player enemy;
     public float distance;
 
+    private GerenciadorDvida vida1;
+    private GerenciadorDvida vida2;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        vida1 = player.GetComponent<GerenciadorDvida>();
+        vida2 = enemy.GetComponent<GerenciadorDvida>();
     }
 
     // Update is called once per frame
@@ -25,6 +29,15 @@ public class SceneManeger : MonoBehaviour
         else
         {
             player.transform.localScale = new Vector3(-Mathf.Abs(player.transform.localScale.x), player.transform.localScale.y, player.transform.localScale.z);
+        }
+
+        if(vida2.VidaAtual <= 0)
+        {
+            Debug.Log("Player 1 ganhou");
+        }
+        else if(vida1.VidaAtual <= 0)
+        {
+            Debug.Log("Player 2 ganhou");
         }
     }
 }
