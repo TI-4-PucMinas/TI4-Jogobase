@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneManeger : MonoBehaviour
 {
-
     public Player player;
     public Player enemy;
     public float distance;
@@ -13,7 +12,6 @@ public class SceneManeger : MonoBehaviour
     private bool gaming = true;
     private GerenciadorDvida vida1;
     private GerenciadorDvida vida2;
-
 
     // Limites da tela
     private float minX, maxX;
@@ -26,16 +24,19 @@ public class SceneManeger : MonoBehaviour
         // Definir o tamanho ortográfico fixo da câmera
         Camera.main.orthographicSize = 5.265842f;
 
-        // Ajustar o scale da câmera ao mínimo possível, mantendo a proporção da tela
+        // Ajustar o scale da câmera ao mínimo possível
         AdjustCameraScale();
 
         // Calcular os limites da câmera
         UpdateCameraLimits();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Impedir que o player e o enemy saiam dos limites da tela
+        RestrictPlayerMovement(player);
+        RestrictPlayerMovement(enemy);
+
         if (player.transform.position.x < enemy.transform.position.x)
         {
             player.transform.localScale = new Vector3(Mathf.Abs(player.transform.localScale.x), player.transform.localScale.y, player.transform.localScale.z);
@@ -45,17 +46,29 @@ public class SceneManeger : MonoBehaviour
             player.transform.localScale = new Vector3(-Mathf.Abs(player.transform.localScale.x), player.transform.localScale.y, player.transform.localScale.z);
         }
 
-        if(vida2.VidaAtual <= 0 && gaming)
+        if (vida2.VidaAtual <= 0 && gaming)
         {
             Debug.Log("Player 1 ganhou");
             SceneManager.LoadScene("Vitoria");
             gaming = false;
         }
-        else if(vida1.VidaAtual <= 0 && gaming)
+        else if (vida1.VidaAtual <= 0 && gaming)
         {
             Debug.Log("Player 2 ganhou");
             gaming = false;
         }
+    }
+
+    // Método para restringir os movimentos dos personagens
+    void RestrictPlayerMovement(Player player)
+    {
+        Vector3 playerPos = player.transform.position;
+
+        // Verificar se o player está fora dos limites e ajustar a posição
+        playerPos.x = Mathf.Clamp(playerPos.x, minX, maxX);
+
+        // Aplicar a nova posição ajustada
+        player.transform.position = playerPos;
     }
 
     void UpdateCameraLimits()
