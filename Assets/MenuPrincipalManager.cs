@@ -7,22 +7,22 @@ public class MenuPrincipalManager : MonoBehaviour
 {
     [SerializeField] private string nomeDoLevelDeJogo;
     [SerializeField] private GameObject painelMenuInicial;
-    [SerializeField] private GameObject painelOpcoes; // Corrigido o nome
+    [SerializeField] private GameObject painelOpcoes; 
 
     public void Jogar()
     {
-        SceneManager.LoadScene(nomeDoLevelDeJogo); // Corrigido "loadScene" para "LoadScene"
+        SceneManager.LoadScene(nomeDoLevelDeJogo); 
     }
 
     public void AbrirOpcoes()
     {
         painelMenuInicial.SetActive(false);
-        painelOpcoes.SetActive(true); // Corrigido o nome
+        painelOpcoes.SetActive(true);
     }
 
     public void FecharOpcoes()
     {
-        painelOpcoes.SetActive(false); // Corrigido o nome
+        painelOpcoes.SetActive(false);
         painelMenuInicial.SetActive(true);
     }
 
