@@ -21,11 +21,6 @@ public class Enemy : Player
 
     void Update()
     {
-        if(gerenciadorDvidaEnemy.VidaAtual <= 0) 
-        {
-            SceneManager.LoadScene("Vitoria");
-        }
-        RestrictMovement();
 
     }
 

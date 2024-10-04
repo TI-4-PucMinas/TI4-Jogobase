@@ -354,7 +354,7 @@ public class Player : MonoBehaviour
             //    StartCoroutine(AttackWDCoroutine());
             //    yield break;
             //}
-            if (UnityEngine.Input.GetKey(KeyCode.F) && UnityEngine.Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.A))
             {
                 StartCoroutine(AttackWACoroutine());
                 yield break;
