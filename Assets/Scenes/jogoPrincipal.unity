@@ -1455,11 +1455,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4118273846037306590, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_Offset.y
-      value: 0
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 4118273846037306590, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_EdgeRadius
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4118273846037306590, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4118273846037306590, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 4517780371199911112, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_Name
@@ -1471,7 +1479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5162885215158375815, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.81
+      value: -1.23
       objectReference: {fileID: 0}
     - target: {fileID: 5162885215158375815, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1517,6 +1525,14 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 7366587248657818352, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+      propertyPath: characterSwitcher
+      value: 
+      objectReference: {fileID: 7814774337598245899}
+    - target: {fileID: 7832935014121453983, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1381556342, guid: 939d08d947392ec469392814cdfa18bf, type: 3}
     - target: {fileID: 8999825683209269892, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       propertyPath: m_Mass
       value: 3
@@ -1559,6 +1575,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4517780371199911112, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7814774337598245898}
+    - targetCorrespondingSourceObject: {fileID: 4517780371199911112, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7814774337598245899}
   m_SourcePrefab: {fileID: 100100000, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
 --- !u!1 &7814774337598245889 stripped
 GameObject:
@@ -1710,6 +1729,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a085f8498f8e640b36e065ea1bfefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &7814774337598245892 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7832935014121453983, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
+  m_PrefabInstance: {fileID: 7814774337598245888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &7814774337598245894 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8951928682951941144, guid: 0b4f6392a6369e84fb46776678ff8ceb, type: 3}
@@ -1729,6 +1753,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BarraDvida: {fileID: 2136870320}
   VidaAtual: 100
+--- !u!114 &7814774337598245899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7814774337598245889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb04198c5577f8749b00b032c445c859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7814774337598245894}
+  spriteRenderer: {fileID: 7814774337598245892}
+  characterControllers:
+  - {fileID: 22100000, guid: c5c41ab9e3327ea4b9634b40aa795e2d, type: 2}
+  - {fileID: 22100000, guid: dcf5735a55312804398bcf98179905b6, type: 2}
+  - {fileID: 22100000, guid: ce8608875bfb97e45a3406ade2ae7bd1, type: 2}
+  characterSprites:
+  - {fileID: -1381556342, guid: 939d08d947392ec469392814cdfa18bf, type: 3}
+  - {fileID: -1574164823, guid: 8c344837aa88d744fae7a2dc0dd43aba, type: 3}
+  - {fileID: 1533025868, guid: 4406f4747c6abcf4799361867f1ac4f0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

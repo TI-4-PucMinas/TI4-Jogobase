@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd2c8d040656fe744b5c8d91c4b18947, type: 3}
+  m_Name: charDB
+  m_EditorClassIdentifier: 
+  character:
+  - characterName: Estudante
+    characterSprite: {fileID: -1381556342, guid: 939d08d947392ec469392814cdfa18bf, type: 3}
+  - characterName: Samurai
+    characterSprite: {fileID: -1574164823, guid: 8c344837aa88d744fae7a2dc0dd43aba, type: 3}
+  - characterName: Shinobi
+    characterSprite: {fileID: 1533025868, guid: 4406f4747c6abcf4799361867f1ac4f0, type: 3}

@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/teste.unity
     guid: 07e7f8d81db7e5248a4a1ec0f9a70337
+  - enabled: 1
+    path: Assets/Scenes/selecaoPersonagem.unity
+    guid: 7417ee97134b037448c663bf96733a24
   m_configObjects: {}

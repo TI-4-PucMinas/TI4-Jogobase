@@ -753,6 +753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nomeDoLevelDeJogo: jogoPrincipal
+  cenaSelecaodeCampeoesLolRitoGomes: selecaoPersonagem
   painelMenuInicial: {fileID: 676345349}
   painelOpcoes: {fileID: 964695081}
   painelSairJogo: {fileID: 0}
@@ -2522,7 +2523,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 375276617}
         m_TargetAssemblyTypeName: MenuPrincipalManager, Assembly-CSharp
-        m_MethodName: Jogar
+        m_MethodName: irSelecaoPersonagem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
