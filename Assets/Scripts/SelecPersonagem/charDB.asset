@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: charDB
   m_EditorClassIdentifier: 
   character:
-  - characterName: "Jo\xE3ozinho"
-    characterSprite: {fileID: 21300000, guid: 89a1c3b8336063349ad205a228657fa3, type: 3}
+  - characterName: Estudante
+    characterSprite: {fileID: -1381556342, guid: 939d08d947392ec469392814cdfa18bf, type: 3}
   - characterName: Samurai
-    characterSprite: {fileID: 21300000, guid: 99453a877122c164698961d6b2c25109, type: 3}
+    characterSprite: {fileID: -1574164823, guid: 8c344837aa88d744fae7a2dc0dd43aba, type: 3}
+  - characterName: Shinobi
+    characterSprite: {fileID: 1533025868, guid: 4406f4747c6abcf4799361867f1ac4f0, type: 3}

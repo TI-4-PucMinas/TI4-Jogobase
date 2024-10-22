@@ -15,7 +15,8 @@ public class charMan : MonoBehaviour
     public SpriteRenderer leftSprite;
     public SpriteRenderer rightSprite;
 
-    private int selectedOption;
+    // Statico. Passamos isso para saber qual sprite carregar.
+    public static int selectedOption;
 
     // Start is called before the first frame update
     void Start()

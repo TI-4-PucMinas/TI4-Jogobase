@@ -5,7 +5,6 @@ public class Protag : Player
 
     protected PlayerControls controls;
 
-
     //limites da tela
     private float minX, maxX, minY, maxY;
 
@@ -18,8 +17,6 @@ public class Protag : Player
         animator = GetComponent<Animator>();
         clipEX.animator = animator;
         vida = GetComponentInChildren<GerenciadorDvida>();
-
-        
     }
 
     void Update()
