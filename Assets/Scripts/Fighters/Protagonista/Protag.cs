@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Protag : Player
 {
 
     protected PlayerControls controls;
 
+
     //limites da tela
     private float minX, maxX, minY, maxY;
+
     void Start()
     {
         atacante = GetComponentInChildren<Attack>();
@@ -18,13 +17,9 @@ public class Protag : Player
         clipEX = new AnimationClipEX();
         animator = GetComponent<Animator>();
         clipEX.animator = animator;
-        // Calcular os limites da câmera em coordenadas do mundo
-        Vector3 bottomLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
-        Vector3 topRight = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        vida = GetComponentInChildren<GerenciadorDvida>();
 
-        // Definir os limites com base nas bordas da câmera
-        minX = bottomLeft.x;
-        maxX = topRight.x;
+        
     }
 
     void Update()
@@ -79,14 +74,8 @@ public class Protag : Player
                 rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
             }
         }
-        RestrictMovement();
+        
     }
-    void RestrictMovement()
-    {
-        // Restringir a posição do personagem dentro dos limites
-        Vector3 position = transform.position;
-        position.x = Mathf.Clamp(position.x, minX, maxX);
 
-        transform.position = position;
-    }
+    
 }

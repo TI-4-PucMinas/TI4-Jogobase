@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Hitboxes;
 
 public class Hurtboxes : MonoBehaviour
 {
@@ -10,31 +7,30 @@ public class Hurtboxes : MonoBehaviour
 
     private Vector2 hurtboxSize;
 
+    private Player player;
+
     private void Start()
     {
         hurtboxSize = transform.parent.lossyScale.normalized;
         hurtboxSize.y += 0.5f;
         colisor = Physics2D.OverlapBox(transform.parent.transform.position, hurtboxSize, 0);
+        player = GetComponentInParent<Player>();
     }
 
     public bool GetHitBy(Attack attack)
     {
-
-        if (attack.hitbox.enabled)
+        if (player != null)
         {
-            
-            Debug.Log("AI");
+            player.TomarDano(attack.damage);
             return true;
         }
         return false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
-
 
     private void OnDrawGizmos()
     {

@@ -207,7 +207,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 375276617}
         m_TargetAssemblyTypeName: MenuPrincipalManager, Assembly-CSharp
-        m_MethodName: FecharOpcoes
+        m_MethodName: SairJogo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -755,6 +755,7 @@ MonoBehaviour:
   nomeDoLevelDeJogo: jogoPrincipal
   painelMenuInicial: {fileID: 676345349}
   painelOpcoes: {fileID: 964695081}
+  painelSairJogo: {fileID: 0}
 --- !u!1 &453084793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,8 +1292,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -109, y: -65}
-  m_SizeDelta: {x: 300, y: 50}
+  m_AnchoredPosition: {x: -4.5, y: -68.361}
+  m_SizeDelta: {x: 509, y: 56.723}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &646463010
 MonoBehaviour:
@@ -1314,7 +1315,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sensibilidade
+  m_text: Velocidade do Ataque
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ab2781724975fa49bfe8fd9e05a61f6, type: 2}
   m_sharedMaterial: {fileID: 1399487030024146765, guid: 0ab2781724975fa49bfe8fd9e05a61f6, type: 2}

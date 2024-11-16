@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using static UnityEngine.RuleTile.TilingRuleOutput;
-
 
 public interface IHitboxResponder
 {
@@ -20,6 +14,8 @@ public class Hitboxes : MonoBehaviour
     public bool useSphere = false;
 
     public Vector2 hitboxSize = Vector2.zero;
+
+    private BoxCollider2D boxCollider;
 
     private Attack ataques;
 
@@ -53,6 +49,7 @@ public class Hitboxes : MonoBehaviour
         }
         gameObject.SetActive(false);
         ataques = GetComponentInParent<Attack>();
+        boxCollider = GetComponent<BoxCollider2D>();
 
     }
 
@@ -61,8 +58,11 @@ public class Hitboxes : MonoBehaviour
        
         if (_state == ColliderState.Closed) { return; }
 
-        if(!useSphere)
+        if (!useSphere)
+        {
+            boxCollider.size = hitboxSize;
             colliders = Physics2D.OverlapBoxAll(position, hitboxSize, mask);
+        }
         else
             colliders = Physics2D.OverlapCircleAll(position, radius, mask);
 
@@ -117,7 +117,10 @@ public class Hitboxes : MonoBehaviour
         _state = ColliderState.Open;
         gameObject.SetActive(true);
         if (!useSphere)
+        {
+            boxCollider.size = hitboxSize;
             colliders = Physics2D.OverlapBoxAll(position, hitboxSize, mask);
+        }
         else
             colliders = Physics2D.OverlapCircleAll(position, radius, mask);
     }
